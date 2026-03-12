@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Report: KisanMitra</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .meta-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 30px;
+        }
+        .meta-info p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        .meta-info span {
+            font-weight: normal;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="text-align: right; margin-bottom: 20px;">
+        <button onclick="window.print()" style="padding: 10px 15px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">Print to PDF</button>
+    </div>
+
+    <h1>Project Report: KisanMitra (किसानमित्र)</h1>
+    
+    <div class="meta-info">
+        <p>Course: <span>CSE326 - Internet Programming Lab</span></p>
+        <p>Project Title: <span>KisanMitra - Farmer's Digital Companion</span></p>
+        <p>Date: <span>12-03-2026</span></p>
+    </div>
+
+    <h2>1. Project Overview</h2>
+    <p><strong>KisanMitra</strong> is a unified digital platform built to empower Indian farmers by bridging the information gap between the farm and the market. The application provides farmers with real-time access to crucial agricultural data, helping them make informed decisions regarding their crops and sales. It is designed to be accessible, responsive, and available offline as a Progressive Web App (PWA).</p>
+
+    <h2>2. Key Features</h2>
+    <ul>
+        <li><strong>Real-time Mandi Prices:</strong> Live commodity prices from over 7,000 mandis across India, allowing farmers to compare prices and find the best markets.</li>
+        <li><strong>Weather Alerts & Advisories:</strong> Location-specific 7-day weather forecasts integrated with crop-specific advisories to help mitigate weather-related risks.</li>
+        <li><strong>MSP (Minimum Support Price) Tracker:</strong> Up-to-date tracking of government-mandated MSPs for 23+ essential crops.</li>
+        <li><strong>Government Schemes Directory:</strong> A comprehensive, easily navigable list of over 50 central and state government agricultural schemes (e.g., PM-KISAN, PMFBY).</li>
+        <li><strong>Direct Market Access:</strong> A platform feature to connect farmers directly with buyers, cooperatives, and exporters to bypass middlemen.</li>
+        <li><strong>Multilingual Support:</strong> Interface support for various Indian languages (English, Hindi, Telugu, Tamil, Marathi, Bengali, Kannada, Gujarati).</li>
+        <li><strong>High Contrast & Accessibility Mode:</strong> Built-in accessibility features to ensure usability for all farmers.</li>
+        <li><strong>Offline Support (PWA):</strong> The application utilizes a service worker to function even with intermittent or no internet connectivity.</li>
+    </ul>
+
+    <h2>3. Technologies Used</h2>
+    <ul>
+        <li><strong>Frontend Structure:</strong> HTML5 (Semantic structuring, Accessibility features)</li>
+        <li><strong>Styling:</strong> Custom CSS3 with CSS Variables for theme management, Flexbox and Grid for responsive layout design. No external CSS frameworks were used to ensure a lightweight footprint.</li>
+        <li><strong>Logic & Functionality:</strong> Vanilla JavaScript (ES6 Modules)
+            <ul>
+                <li><code>app.js</code>: Main application logic and routing.</li>
+                <li><code>api.js</code>: Handles asynchronous data fetching (simulated API calls for weather and mandi data).</li>
+                <li><code>i18n.js</code>: Manages multilingual translations and localization.</li>
+                <li><code>db.js</code>, <code>state.js</code>: Modular state management and local data persistence.</li>
+            </ul>
+        </li>
+        <li><strong>Progressive Web App (PWA):</strong> <code>manifest.json</code> and <code>service-worker.js</code> for installability and offline caching.</li>
+    </ul>
+
+    <h2>4. Architecture & Design</h2>
+    <p>The application follows a modular monolith architecture on the frontend:</p>
+    <ul>
+        <li><strong>Responsive Design:</strong> The UI is completely responsive, adapting seamlessly from mobile devices (critical for farmers) to desktop dashboards.</li>
+        <li><strong>Component-Based Styling:</strong> CSS is organized modularly (e.g., cards, navigation, tables) using BEM-like conventions.</li>
+        <li><strong>State Management:</strong> A centralized state object manages user preferences (language, location) and application data.</li>
+    </ul>
+
+    <h2>5. Deployment</h2>
+    <p>The project is version-controlled using Git and is deployed live using GitHub Pages.</p>
+    <ul>
+        <li><strong>Live URL:</strong> <a href="https://tekigowtham2204.github.io/KisanMitra/" target="_blank">https://tekigowtham2204.github.io/KisanMitra/</a></li>
+        <li><strong>GitHub Repository:</strong> <a href="https://github.com/tekigowtham2204/KisanMitra" target="_blank">https://github.com/tekigowtham2204/KisanMitra</a></li>
+    </ul>
+
+    <h2>6. Conclusion</h2>
+    <p>KisanMitra successfully demonstrates the application of core Internet Programming concepts (HTML, CSS, JS, APIs, PWAs) to solve a real-world problem. By providing farmers with transparent market data and access to schemes, it aims to reduce dependency on middlemen and improve agricultural livelihoods.</p>
+</body>
+</html>
