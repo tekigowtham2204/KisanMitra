@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="hi-IN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑफ़लाइन — KisanMitra</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9933">
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="KisanMitra — Farmer's Digital Companion" />
+    <meta property="og:description"
+        content="Real-time mandi prices, weather advisories, MSP data, and government scheme information for Indian farmers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kisanmitra.in" />
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23FF9933'/><text x='96' y='120' font-size='100' text-anchor='middle' fill='white'>🌾</text></svg>"
+        type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1729 0%, #1a2332 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            max-width: 500px;
+        }
+
+        .offline-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #FF9933;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #94a3b8;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .helpline {
+            background: rgba(255, 153, 51, 0.1);
+            border: 1px solid rgba(255, 153, 51, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .helpline h3 {
+            font-size: 0.9rem;
+            color: #FF9933;
+            margin-bottom: 8px;
+        }
+
+        .helpline .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #22c55e;
+        }
+
+        .helpline .desc {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .retry-btn {
+            background: #FF9933;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .retry-btn:hover {
+            background: #e68a00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 153, 51, 0.3);
+        }
+
+        .msp-info {
+            margin-top: 30px;
+            text-align: left;
+            background: rgba(19, 136, 8, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .msp-info h4 {
+            color: #22c55e;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+        }
+
+        .msp-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+        }
+
+        .msp-row:last-child {
+            border-bottom: none;
+        }
+
+        .msp-row .crop {
+            color: #94a3b8;
+        }
+
+        .msp-row .price {
+            color: #22c55e;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📡</div>
+        <h1>इंटरनेट कनेक्शन नहीं है</h1>
+        <h2>You're Currently Offline</h2>
+        <p>
+            आपका इंटरनेट कनेक्शन उपलब्ध नहीं है। लाइव मंडी भाव और मौसम डेटा के लिए इंटरनेट आवश्यक है।
+            कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।
+        </p>
+
+        <div class="helpline">
+            <h3>📞 किसान हेल्पलाइन (Kisan Helpline)</h3>
+            <div class="number">1800-180-1551</div>
+            <div class="desc">24/7 toll-free — call even without internet</div>
+        </div>
+
+        <button class="retry-btn" onclick="window.location.reload()">🔄 पुनः प्रयास करें / Retry</button>
+
+        <div class="msp-info">
+            <h4>📋 Quick MSP Reference (ऑफ़लाइन) — 2024-25</h4>
+            <div class="msp-row"><span class="crop">🌾 गेहूं (Wheat)</span><span class="price">₹2,275/Qt</span></div>
+            <div class="msp-row"><span class="crop">🍚 धान (Paddy)</span><span class="price">₹2,300/Qt</span></div>
+            <div class="msp-row"><span class="crop">🌽 मक्का (Maize)</span><span class="price">₹2,225/Qt</span></div>
+            <div class="msp-row"><span class="crop">🫘 चना (Gram)</span><span class="price">₹5,650/Qt</span></div>
+            <div class="msp-row"><span class="crop">🟡 सरसों (Mustard)</span><span class="price">₹5,950/Qt</span></div>
+            <div class="msp-row"><span class="crop">🫘 अरहर (Tur/Arhar)</span><span class="price">₹7,550/Qt</span></div>
+            <div class="msp-row"><span class="crop">🥜 मूंगफली (Groundnut)</span><span class="price">₹6,783/Qt</span>
+            </div>
+            <div class="msp-row"><span class="crop">🏵️ कपास (Cotton)</span><span class="price">₹7,121/Qt</span></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="KisanMitra Direct Market Access — Connect directly with verified buyers, cooperatives, and exporters. Bypass middlemen and get fair prices.">
+    <meta name="theme-color" content="#FF9933">
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="KisanMitra — Farmer's Digital Companion" />
+    <meta property="og:description"
+        content="Real-time mandi prices, weather advisories, MSP data, and government scheme information for Indian farmers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kisanmitra.in" />
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23FF9933'/><text x='96' y='120' font-size='100' text-anchor='middle' fill='white'>🌾</text></svg>"
+        type="image/svg+xml">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Direct Market Access — KisanMitra</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌾</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='30' fill='%23FF9933'/><text x='90' y='115' font-size='90' text-anchor='middle' fill='white'>🌾</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Government Strip -->
+    <div class="gov-strip">
+        <div class="container">
+            <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
+            <div>
+                <select id="langSelect" class="lang-select"
+                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
+                    <option value="en" style="color:#0f1729;">English</option>
+                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
+                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
+                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
+                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
+                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
+                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                </select>
+
+                <button class="hc-toggle"
+                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
+                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+            </div>
+        </div>
+    </div>
+    <div class="tricolor-divider"></div>
+
+    <!-- Price Ticker -->
+    <div class="price-ticker" id="priceTicker">
+        <div class="ticker-wrap" id="tickerContent">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <div class="logo">🌾</div>
+                <div class="brand-text">
+                    <h1>KisanMitra</h1>
+                    <span>किसानमित्र — Farmer's Companion</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                <li><a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+                <li><a href="schemes.html" data-i18n="nav.schemes">Schemes</a></li>
+                <li><a href="market.html" class="active" data-i18n="nav.market">Market</a></li>
+                <li><a href="dashboard.html" class="nav-cta" data-i18n="hero.btn.dashboard">📊 Live Dashboard</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <strong>Direct Market Access</strong>
+            </div>
+            <h2 data-i18n="market.title">Agricultural Market Connect</h2>
+            <p data-i18n="market.subtitle">Direct buyer-seller marketplace for agricultural produce</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="dashboard">
+        <div class="container">
+            <!-- Stats -->
+            <div class="quick-stats" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--saffron-light);">🤝</div>
+                    <div class="stat-info">
+                        <h4>Verified Buyers</h4>
+                        <span class="value">2,847</span>
+                        <span class="change up">↑ 120 new this month</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--green-light);">💰</div>
+                    <div class="stat-info">
+                        <h4>Total Trade Value</h4>
+                        <span class="value">₹485 Cr</span>
+                        <span class="change up">↑ 23% vs last quarter</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--info-bg);">📦</div>
+                    <div class="stat-info">
+                        <h4>Active Listings</h4>
+                        <span class="value">12,340</span>
+                        <span class="change up">Buy & sell offers</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--success-bg);">👨‍🌾</div>
+                    <div class="stat-info">
+                        <h4>Farmer Avg Gain</h4>
+                        <span class="value">+18%</span>
+                        <span class="change up">Higher than mandi selling</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How it works -->
+            <div class="card" style="margin-bottom:24px;">
+                <div class="card-body" style="padding:24px 28px;">
+                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center;">
+                        <div style="text-align:center;flex:1;min-width:160px;">
+                            <div style="font-size:2rem;margin-bottom:6px;">👨‍🌾</div>
+                            <strong style="font-size:0.85rem;">Farmer Lists Produce</strong>
+                        </div>
+                        <div style="font-size:1.5rem;color:var(--saffron);">→</div>
+                        <div style="text-align:center;flex:1;min-width:160px;">
+                            <div style="font-size:2rem;margin-bottom:6px;">🔍</div>
+                            <strong style="font-size:0.85rem;">Buyers Browse & Bid</strong>
+                        </div>
+                        <div style="font-size:1.5rem;color:var(--saffron);">→</div>
+                        <div style="text-align:center;flex:1;min-width:160px;">
+                            <div style="font-size:2rem;margin-bottom:6px;">🤝</div>
+                            <strong style="font-size:0.85rem;">Price Negotiation</strong>
+                        </div>
+                        <div style="font-size:1.5rem;color:var(--saffron);">→</div>
+                        <div style="text-align:center;flex:1;min-width:160px;">
+                            <div style="font-size:2rem;margin-bottom:6px;">🚛</div>
+                            <strong style="font-size:0.85rem;">Logistics & Delivery</strong>
+                        </div>
+                        <div style="font-size:1.5rem;color:var(--green);">→</div>
+                        <div style="text-align:center;flex:1;min-width:160px;">
+                            <div style="font-size:2rem;margin-bottom:6px;">💰</div>
+                            <strong style="font-size:0.85rem;">Direct Payment</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs" id="marketTabs">
+                <button class="tab active" onclick="switchTab('buy')" id="tabBuy" data-i18n="market.tab.buy">🛒 Buyer
+                    Listings</button>
+                <button class="tab" onclick="switchTab('sell')" id="tabSell" data-i18n="market.tab.sell">📦 Sell Your
+                    Produce</button>
+                <button class="tab" onclick="switchTab('contracts')" id="tabContracts"
+                    data-i18n="market.tab.contracts">📝 Contract Farming</button>
+            </div>
+
+            <!-- Tab Content: Buy Listings -->
+            <div id="buyContent">
+                <!-- Filter -->
+                <div class="filter-bar" style="margin-bottom:20px;">
+                    <label>🌾 Commodity:</label>
+                    <select class="form-control" id="marketCommodityFilter" onchange="filterListings()">
+                        <option value="">All Commodities</option>
+                    </select>
+                    <label>🏢 Buyer Type:</label>
+                    <select class="form-control form-control-sm" id="marketTypeFilter" onchange="filterListings()">
+                        <option value="">All Types</option>
+                        <option value="Company">Company</option>
+                        <option value="Cooperative">Cooperative</option>
+                        <option value="Government">Government</option>
+                        <option value="Exporter">Exporter</option>
+                        <option value="Trader">Trader</option>
+                    </select>
+                    <label>✅ Verified Only:</label>
+                    <input type="checkbox" id="verifiedOnly" onchange="filterListings()" checked
+                        style="width:18px;height:18px;">
+                </div>
+
+                <div class="grid-2" id="listingsGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Tab Content: Sell -->
+            <div id="sellContent" style="display:none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📦 List Your Produce for Sale</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="sellForm" onsubmit="submitSellForm(event)" style="max-width:700px;">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Farmer
+                                        Name *</label>
+                                    <input type="text" class="form-control" id="sellName" required
+                                        placeholder="Enter your name" style="width:100%;">
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Phone
+                                        Number *</label>
+                                    <input type="tel" class="form-control" id="sellPhone" required
+                                        placeholder="+91 XXXXX XXXXX" style="width:100%;">
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">State
+                                        *</label>
+                                    <select class="form-control" id="sellState" required style="width:100%;">
+                                        <option value="">Select State</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">District
+                                        *</label>
+                                    <select class="form-control" id="sellDistrict" required style="width:100%;">
+                                        <option value="">Select District</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Commodity
+                                        *</label>
+                                    <select class="form-control" id="sellCommodity" required style="width:100%;">
+                                        <option value="">Select Commodity</option>
+                                        <!-- Populated dynamically by JS from KisanData.COMMODITIES -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Quantity
+                                        (Quintals) *</label>
+                                    <input type="number" class="form-control" id="sellQuantity" required
+                                        placeholder="e.g. 50" min="1" style="width:100%;">
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Expected
+                                        Price (₹/Quintal)</label>
+                                    <input type="number" class="form-control" id="sellPrice" placeholder="e.g. 2500"
+                                        style="width:100%;">
+                                </div>
+                                <div>
+                                    <label
+                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Available
+                                        From</label>
+                                    <input type="date" class="form-control" id="sellDate" style="width:100%;">
+                                </div>
+                            </div>
+                            <div style="margin-top:16px;">
+                                <label
+                                    style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Additional
+                                    Details</label>
+                                <textarea class="form-control" id="sellDetails" rows="3"
+                                    placeholder="Quality grade, organic certification, delivery preferences, etc."
+                                    style="width:100%;resize:vertical;"></textarea>
+                            </div>
+                            <div style="margin-top:20px;display:flex;gap:12px;">
+                                <button type="submit" class="btn btn-primary">📦 List for Sale</button>
+                                <button type="reset" class="btn btn-outline">Clear Form</button>
+                            </div>
+                        </form>
+                        <div id="sellFormResult" style="margin-top:20px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Contract Farming -->
+            <div id="contractsContent" style="display:none;">
+                <div class="grid-2" style="margin-bottom:24px;">
+                    <div class="card">
+                        <div class="card-body" style="text-align:center;padding:40px;">
+                            <div style="font-size:3rem;margin-bottom:12px;">📝</div>
+                            <h3 style="font-weight:700;margin-bottom:8px;">Assured Contract Farming</h3>
+                            <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">
+                                Get guaranteed buyers and stable income through pre-agreed contracts. Reduce market
+                                risks with assured procurement at pre-decided prices.
+                            </p>
+                            <div style="display:flex;gap:30px;justify-content:center;margin-bottom:20px;">
+                                <div>
+                                    <div style="font-size:1.5rem;font-weight:800;color:var(--green);">1,240+</div>
+                                    <div style="font-size:0.75rem;color:var(--text-muted);">Active Contracts</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:1.5rem;font-weight:800;color:var(--saffron);">₹89 Cr</div>
+                                    <div style="font-size:0.75rem;color:var(--text-muted);">Contract Value</div>
+                                </div>
+                                <div>
+                                    <div style="font-size:1.5rem;font-weight:800;color:var(--info);">45,000+</div>
+                                    <div style="font-size:0.75rem;color:var(--text-muted);">Farmers Enrolled</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-success"
+                                onclick="UI.showToast('Contract farming registration will open soon! We are partnering with FPOs.', 'info')">Register
+                                Interest →</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 style="font-weight:700;margin-bottom:16px;">🏢 Active Contract Partners</h3>
+                            <div>
+                                <div
+                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
+                                    <div
+                                        style="width:44px;height:44px;background:var(--saffron-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                        🏭</div>
+                                    <div style="flex:1;">
+                                        <strong style="font-size:0.9rem;">ITC Agri Business</strong>
+                                        <div style="font-size:0.75rem;color:var(--text-muted);">Wheat, Soybean, Rice •
+                                            Pan India</div>
+                                    </div>
+                                    <span class="badge badge-success">✓ Verified</span>
+                                </div>
+                                <div
+                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
+                                    <div
+                                        style="width:44px;height:44px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                        🏬</div>
+                                    <div style="flex:1;">
+                                        <strong style="font-size:0.9rem;">Mother Dairy</strong>
+                                        <div style="font-size:0.75rem;color:var(--text-muted);">Vegetables, Fruits •
+                                            North India</div>
+                                    </div>
+                                    <span class="badge badge-success">✓ Verified</span>
+                                </div>
+                                <div
+                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
+                                    <div
+                                        style="width:44px;height:44px;background:var(--info-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                        🌿</div>
+                                    <div style="flex:1;">
+                                        <strong style="font-size:0.9rem;">Dabur India</strong>
+                                        <div style="font-size:0.75rem;color:var(--text-muted);">Herbs, Turmeric, Honey •
+                                            Select States</div>
+                                    </div>
+                                    <span class="badge badge-success">✓ Verified</span>
+                                </div>
+                                <div
+                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
+                                    <div
+                                        style="width:44px;height:44px;background:var(--warning-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                        🧴</div>
+                                    <div style="flex:1;">
+                                        <strong style="font-size:0.9rem;">Patanjali Ayurved</strong>
+                                        <div style="font-size:0.75rem;color:var(--text-muted);">Organic produce, Herbs •
+                                            North & Central India</div>
+                                    </div>
+                                    <span class="badge badge-success">✓ Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Helpline -->
+            <div class="helpline-banner" style="margin-top:24px;">
+                <div>
+                    <h3>🏪 Also trade on eNAM Portal</h3>
+                    <p>India's National Agriculture Market — electronic trading portal for transparent price discovery
+                    </p>
+                </div>
+                <a href="https://enam.gov.in" target="_blank" class="btn btn-secondary btn-lg"
+                    style="background:rgba(255,255,255,0.2);">
+                    Visit eNAM →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="tricolor-divider"></div>
+        <div class="container" style="padding-top: 40px;">
+            <div class="footer-grid">
+                <div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                        <div
+                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                            🌾</div>
+                        <div>
+                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                                KisanMitra</h3>
+                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                        </div>
+                    </div>
+                    <p>India's unified digital companion for farmers. Real-time mandi prices, weather alerts, MSP
+                        tracking, government schemes, and direct market access — all in one platform.</p>
+                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                        Ministry of Agriculture & Farmers Welfare, Government of India.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="dashboard.html">📊 Mandi Prices</a></li>
+                        <li><a href="schemes.html">🏛️ Government Schemes</a></li>
+                        <li><a href="market.html">🏪 Direct Market</a></li>
+                        <li><a href="#">💰 MSP Tracker</a></li>
+                        <li><a href="#">🌤️ Weather Alerts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Government Portals</h4>
+                    <ul>
+                        <li><a href="https://enam.gov.in" target="_blank">eNAM Portal</a></li>
+                        <li><a href="https://agmarknet.gov.in" target="_blank">Agmarknet</a></li>
+                        <li><a href="https://pmkisan.gov.in" target="_blank">PM-KISAN</a></li>
+                        <li><a href="https://pmfby.gov.in" target="_blank">PM Fasal Bima</a></li>
+                        <li><a href="https://soilhealth.dac.gov.in" target="_blank">Soil Health Card</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Helpline & Support</h4>
+                    <ul>
+                        <li><a href="tel:18001801551">📞 Kisan Call Center: 1800-180-1551</a></li>
+                        <li><a href="#">📧 support@kisanmitra.gov.in</a></li>
+                        <li><a href="#">📍 Krishi Bhawan, New Delhi</a></li>
+                        <li><a href="#">❓ FAQ</a></li>
+                        <li><a href="#">📋 Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 KisanMitra — Ministry of Agriculture & Farmers Welfare, Government of India. All rights
+                    reserved.</span>
+                <div class="footer-govt-logos">
+                    <span>🇮🇳 Digital India</span>
+                    <span>|</span>
+                    <span>Made with ❤️ for Indian Farmers</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+    <script src="js/api.js?v=5"></script>
+    <script src="js/data.js?v=5"></script>
+    <script src="js/i18n.js?v=5"></script>
+    <script type="module" src="js/app.js?v=5"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => {
+                        console.log('[SW] Registered:', reg.scope);
+                        reg.onupdatefound = () => {
+                            const newWorker = reg.installing;
+                            newWorker.onstatechange = () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    if (window.UI) window.UI.showToast('New update available! Refresh to update.', 'info');
+                                }
+                            };
+                        };
+                    })
+                    .catch(err => console.warn('[SW] Registration failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

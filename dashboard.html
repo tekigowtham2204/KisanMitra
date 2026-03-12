@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="KisanMitra Dashboard — Real-time mandi prices, MSP comparison, weather alerts, and price trend analysis for Indian farmers.">
+    <meta name="theme-color" content="#FF9933">
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="KisanMitra — Farmer's Digital Companion" />
+    <meta property="og:description"
+        content="Real-time mandi prices, weather advisories, MSP data, and government scheme information for Indian farmers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kisanmitra.in" />
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23FF9933'/><text x='96' y='120' font-size='100' text-anchor='middle' fill='white'>🌾</text></svg>"
+        type="image/svg+xml">
+
+    <style>
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .sidebar,
+            .navbar,
+            .btn,
+            .fab,
+            #mandiSearch,
+            .search-container,
+            .mobile-nav,
+            header {
+                display: none !important;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                padding: 0 !important;
+                margin-top: 0 !important;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                page-break-inside: avoid;
+            }
+
+            .badge {
+                border: 1px solid #000;
+                color: #000 !important;
+                background: transparent !important;
+            }
+
+            #priceChart {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            * {
+                text-shadow: none !important;
+            }
+        }
+    </style>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Mandi Price Dashboard — KisanMitra</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌾</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='30' fill='%23FF9933'/><text x='90' y='115' font-size='90' text-anchor='middle' fill='white'>🌾</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Government Strip -->
+    <div class="gov-strip">
+        <div class="container">
+            <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
+            <div>
+                <select id="langSelect" class="lang-select"
+                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
+                    <option value="en" style="color:#0f1729;">English</option>
+                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
+                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
+                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
+                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
+                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
+                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                </select>
+
+                <button class="hc-toggle"
+                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
+                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+            </div>
+        </div>
+    </div>
+    <div class="tricolor-divider"></div>
+
+    <!-- Price Ticker -->
+    <div class="price-ticker" id="priceTicker">
+        <div class="ticker-wrap" id="tickerContent"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <div class="logo">🌾</div>
+                <div class="brand-text">
+                    <h1>KisanMitra</h1>
+                    <span>किसानमित्र — Farmer's Companion</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                <li><a href="dashboard.html" class="active" data-i18n="nav.dashboard">Dashboard</a></li>
+                <li><a href="schemes.html" data-i18n="nav.schemes">Schemes</a></li>
+                <li><a href="market.html" data-i18n="nav.market">Market</a></li>
+                <li><a href="dashboard.html" class="nav-cta" data-i18n="hero.btn.dashboard">📊 Live Dashboard</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <strong>Mandi Price Dashboard</strong>
+            </div>
+            <h2 data-i18n="dash.title">Agricultural Commodity Dashboard</h2>
+            <p data-i18n="dash.subtitle">Real-time mandi prices, weather, and market intelligence</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard">
+        <div class="container">
+            <!-- Quick Stats -->
+            <div class="quick-stats" id="dashboardStats">
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--saffron-light);">🌾</div>
+                    <div class="stat-info">
+                        <h4>Commodities Tracked</h4>
+                        <span class="value" id="statCommodities">—</span>
+                        <span class="change up" id="statCommoditiesLabel">Loading...</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--green-light);">🏪</div>
+                    <div class="stat-info">
+                        <h4>Active Mandis</h4>
+                        <span class="value" id="statMandis">—</span>
+                        <span class="change up" id="statMandisLabel">Loading...</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--info-bg);">📈</div>
+                    <div class="stat-info">
+                        <h4>Today's Avg Change</h4>
+                        <span class="value" id="avgChange">+1.2%</span>
+                        <span class="change up" id="avgChangeLabel">Prices trending up</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box" style="background:var(--warning-bg);">⏰</div>
+                    <div class="stat-info">
+                        <h4>Data Freshness</h4>
+                        <span class="value" id="statFreshness">Live</span>
+                        <span class="change up" id="statFreshnessLabel">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" id="filterBar">
+                <input type="text" class="form-control" id="mandiSearch" placeholder="Search Mandi..."
+                    aria-label="Search Mandi" oninput="filterMandiTable()">
+                <label for="stateSelect" data-i18n="dash.state">📍 State:</label>
+                <select class="form-control" id="stateSelect" aria-label="Select State">
+                    <option value="">All States</option>
+                </select>
+
+                <label for="districtSelect">📍 District:</label>
+                <select class="form-control" id="districtSelect" aria-label="Select District">
+                    <option value="">All Districts</option>
+                </select>
+
+                <label for="commoditySelect" data-i18n="dash.commodity">🌾 Commodity:</label>
+                <select class="form-control" id="commoditySelect" aria-label="Select Commodity">
+                    <option value="">Select Commodity</option>
+                </select>
+
+                <label for="categorySelect">📂 Category:</label>
+                <select class="form-control form-control-sm" id="categorySelect">
+                    <option value="">All Categories</option>
+                    <option value="Cereals">Cereals</option>
+                    <option value="Pulses">Pulses</option>
+                    <option value="Oilseeds">Oilseeds</option>
+                    <option value="Cash Crops">Cash Crops</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Spices">Spices</option>
+                    <option value="Fruits">Fruits</option>
+                </select>
+
+                <button class="btn btn-primary btn-sm" id="searchBtn" onclick="searchPrices()"
+                    data-i18n="dash.search">🔍 Search</button>
+                <button class="btn btn-outline btn-sm" onclick="resetFilters()" data-i18n="dash.reset">↻ Reset</button>
+                <button class="btn btn-outline btn-sm voice-btn" id="voiceSearchBtn"
+                    onclick="KisanI18n.startVoiceSearch()" title="Voice Search"
+                    style="border-radius:50%;width:36px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:var(--white);border-color:var(--border-color);">🎤</button>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid-sidebar">
+                <!-- Left: Price Table & Charts -->
+                <div>
+                    <!-- Favorites Section -->
+                    <div class="favorites-section" id="favoritesSection" style="display:none;">
+                        <div class="section-header" style="margin-bottom:16px;">
+                            <h3 data-i18n="dash.favorites">❤️ My Favorites</h3>
+                        </div>
+                        <div class="favorites-grid" id="favoritesGrid">
+                            <!-- Populated by JS -->
+                        </div>
+                        <hr style="margin:24px 0;border:0;border-top:1px solid var(--border-color);">
+                    </div>
+
+                    <!-- Mandi Price Table -->
+                    <div class="card" style="margin-bottom:24px;">
+                        <div class="card-header">
+                            <h3>🏪 Mandi-wise Price Comparison</h3>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span class="badge badge-info" id="resultCount">Select commodity to view</span>
+                                <button class="btn btn-outline btn-sm" id="exportCsvBtn" onclick="exportCSV()"
+                                    style="display:none;font-size:0.75rem;">📥 Export CSV</button>
+                            </div>
+                        </div>
+                        <div class="card-body no-padding">
+                            <div class="table-responsive">
+                                <table class="data-table" id="mandiTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Mandi / Market</th>
+                                            <th>Min Price (₹)</th>
+                                            <th>Max Price (₹)</th>
+                                            <th>Modal Price (₹)</th>
+                                            <th>Variety</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mandiTableBody">
+                                        <tr>
+                                            <td colspan="6"
+                                                style="text-align:center;padding:60px 20px;color:var(--text-muted);">
+                                                <div style="font-size:2.5rem;margin-bottom:12px;">📊</div>
+                                                <strong>Select a State and Commodity</strong><br>
+                                                <span style="font-size:0.85rem;">Use the filters above to view real-time
+                                                    mandi prices from data.gov.in</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Comparison Bar Chart -->
+                    <div class="card" style="margin-bottom:24px;">
+                        <div class="card-header">
+                            <h3>📊 Price Comparison Across Mandis</h3>
+                            <span class="badge badge-saffron">Modal Price (₹/Quintal)</span>
+                        </div>
+                        <div class="card-body">
+                            <div id="barChartContainer" class="bar-chart"
+                                style="height:250px;display:flex;align-items:flex-end;gap:6px;padding:20px 10px 30px;">
+                                <p style="text-align:center;width:100%;color:var(--text-muted);align-self:center;">
+                                    Search for a commodity to view price comparison chart</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Trend Chart -->
+                    <div class="card" style="margin-bottom:24px;">
+                        <div class="card-header">
+                            <h3>📈 30-Day Price Trend</h3>
+                            <div style="display:flex;gap:8px;">
+                                <button class="btn btn-sm btn-outline" onclick="setTrendPeriod(7)">7D</button>
+                                <button class="btn btn-sm btn-primary" onclick="setTrendPeriod(30)">30D</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="trendChartContainer" style="position:relative;">
+                                <canvas id="trendCanvas" width="800" height="250"
+                                    style="width:100%;height:250px;"></canvas>
+                                <p id="trendPlaceholder"
+                                    style="text-align:center;color:var(--text-muted);padding:40px;">Search for a
+                                    commodity to view price trend</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MSP Comparison -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>💰 Market Price vs MSP Comparison</h3>
+                            <span class="badge badge-success">Fair Price Indicator</span>
+                        </div>
+                        <div class="card-body" id="mspComparisonContainer">
+                            <p style="text-align:center;color:var(--text-muted);padding:20px;">Search for a commodity
+                                with MSP to view comparison</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div>
+                    <!-- Weather Widget -->
+                    <div class="weather-widget" id="weatherWidget" style="margin-bottom:24px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                            <div>
+                                <h3 style="font-size:1rem;font-weight:700;" data-i18n="dash.weather">🌤️ Weather Today
+                                </h3>
+                                <span style="font-size:0.75rem;opacity:0.7;" id="weatherLocation">Select a
+                                    district</span>
+                            </div>
+                            <span style="font-size:0.7rem;opacity:0.5;" id="weatherDate"></span>
+                        </div>
+                        <div class="weather-current">
+                            <span class="weather-icon" id="weatherIcon">🌤️</span>
+                            <div>
+                                <div class="temp" id="weatherTemp">--<sup>°C</sup></div>
+                                <span style="font-size:0.8rem;opacity:0.8;" id="weatherCondition">--</span>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <div class="label">Humidity</div>
+                                <div class="value" id="weatherHumidity">--%</div>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="label">Wind</div>
+                                <div class="value" id="weatherWind">-- km/h</div>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="label">Rainfall</div>
+                                <div class="value" id="weatherRain">-- mm</div>
+                            </div>
+                        </div>
+                        <div class="weather-forecast" id="weatherForecast">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Crop Advisory -->
+                    <div class="card" style="margin-bottom:24px;">
+                        <div class="card-header">
+                            <h3 data-i18n="dash.advisory">🌾 Crop Advisory</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="advisory-list" id="advisoryList">
+                                <li class="advisory-item">❄️ Frost alert — protect Rabi crops with light irrigation</li>
+                                <li class="advisory-item">🌾 Ideal time for wheat sowing in Northern India</li>
+                                <li class="advisory-item">🌫️ Foggy conditions may affect growth — ensure field
+                                    ventilation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Top Gainers -->
+                    <div class="card" style="margin-bottom:24px;">
+                        <div class="card-header">
+                            <h3>📈 Highest MSP Crops</h3>
+                        </div>
+                        <div class="card-body" id="topGainers">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- MSP Quick Reference -->
+                    <div class="card" style="margin-bottom:24px;">
+                        <div class="card-header">
+                            <h3>💰 MSP Quick Reference</h3>
+                            <span class="badge badge-saffron">2024-25</span>
+                        </div>
+                        <div class="card-body no-padding">
+                            <table class="data-table" id="mspQuickTable">
+                                <thead>
+                                    <tr>
+                                        <th>Crop</th>
+                                        <th>MSP (₹/Qt)</th>
+                                        <th>Season</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mspQuickBody">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Helpline -->
+                    <div
+                        style="background:linear-gradient(135deg, var(--green) 0%, #22c55e 100%);border-radius:var(--border-radius-lg);padding:20px;color:var(--white);text-align:center;">
+                        <div style="font-size:2rem;margin-bottom:8px;">📞</div>
+                        <h4 style="font-weight:700;margin-bottom:4px;">Kisan Helpline</h4>
+                        <p style="font-size:0.8rem;opacity:0.9;margin-bottom:10px;">24/7 toll-free number</p>
+                        <div style="font-size:1.5rem;font-weight:800;">1800-180-1551</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="tricolor-divider"></div>
+        <div class="container" style="padding-top: 40px;">
+            <div class="footer-grid">
+                <div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                        <div
+                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                            🌾</div>
+                        <div>
+                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                                KisanMitra</h3>
+                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                        </div>
+                    </div>
+                    <p>India's unified digital companion for farmers. Real-time mandi prices, weather alerts, MSP
+                        tracking, government schemes, and direct market access — all in one platform.</p>
+                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                        Ministry of Agriculture & Farmers Welfare, Government of India.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="dashboard.html">📊 Mandi Prices</a></li>
+                        <li><a href="schemes.html">🏛️ Government Schemes</a></li>
+                        <li><a href="market.html">🏪 Direct Market</a></li>
+                        <li><a href="#">💰 MSP Tracker</a></li>
+                        <li><a href="#">🌤️ Weather Alerts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Government Portals</h4>
+                    <ul>
+                        <li><a href="https://enam.gov.in" target="_blank">eNAM Portal</a></li>
+                        <li><a href="https://agmarknet.gov.in" target="_blank">Agmarknet</a></li>
+                        <li><a href="https://pmkisan.gov.in" target="_blank">PM-KISAN</a></li>
+                        <li><a href="https://pmfby.gov.in" target="_blank">PM Fasal Bima</a></li>
+                        <li><a href="https://soilhealth.dac.gov.in" target="_blank">Soil Health Card</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Helpline & Support</h4>
+                    <ul>
+                        <li><a href="tel:18001801551">📞 Kisan Call Center: 1800-180-1551</a></li>
+                        <li><a href="#">📧 support@kisanmitra.gov.in</a></li>
+                        <li><a href="#">📍 Krishi Bhawan, New Delhi</a></li>
+                        <li><a href="#">❓ FAQ</a></li>
+                        <li><a href="#">📋 Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 KisanMitra — Ministry of Agriculture & Farmers Welfare, Government of India. All rights
+                    reserved.</span>
+                <div class="footer-govt-logos">
+                    <span>🇮🇳 Digital India</span>
+                    <span>|</span>
+                    <span>Made with ❤️ for Indian Farmers</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+    <script src="js/api.js?v=5"></script>
+    <script src="js/data.js?v=5"></script>
+    <script src="js/i18n.js?v=5"></script>
+    <script type="module" src="js/app.js?v=5"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => {
+                        console.log('[SW] Registered:', reg.scope);
+                        reg.onupdatefound = () => {
+                            const newWorker = reg.installing;
+                            newWorker.onstatechange = () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    if (window.UI) window.UI.showToast('New update available! Refresh to update.', 'info');
+                                }
+                            };
+                        };
+                    })
+                    .catch(err => console.warn('[SW] Registration failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

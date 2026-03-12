@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="KisanMitra — India's unified farmer welfare platform providing real-time mandi prices, weather alerts, MSP tracking, and direct market access for Indian farmers.">
+    <meta name="keywords" content="Kisan, Farmer, Mandi Prices, MSP, Agriculture, India, eNAM, Weather, Crop Prices">
+    <meta name="author" content="KisanMitra — Ministry of Agriculture & Farmers Welfare">
+    <meta name="theme-color" content="#FF9933">
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="KisanMitra — Farmer's Digital Companion" />
+    <meta property="og:description"
+        content="Real-time mandi prices, weather advisories, MSP data, and government scheme information for Indian farmers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kisanmitra.in" />
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23FF9933'/><text x='96' y='120' font-size='100' text-anchor='middle' fill='white'>🌾</text></svg>"
+        type="image/svg+xml">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>KisanMitra — किसानमित्र | Empowering India's Farmers</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌾</text></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='30' fill='%23FF9933'/><text x='90' y='115' font-size='90' text-anchor='middle' fill='white'>🌾</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Government Strip -->
+    <div class="gov-strip">
+        <div class="container">
+            <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
+            <div>
+                <select id="langSelect" class="lang-select"
+                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
+                    <option value="en" style="color:#0f1729;">English</option>
+                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
+                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
+                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
+                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
+                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
+                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                </select>
+
+                <button class="hc-toggle"
+                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
+                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tricolor Divider -->
+    <div class="tricolor-divider"></div>
+
+    <!-- Price Ticker -->
+    <div class="price-ticker" id="priceTicker">
+        <div class="ticker-wrap" id="tickerContent">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">
+                <div class="logo">🌾</div>
+                <div class="brand-text">
+                    <h1>KisanMitra</h1>
+                    <span>किसानमित्र — Farmer's Companion</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active" data-i18n="nav.home">Home</a></li>
+                <li><a href="dashboard.html" data-i18n="nav.dashboard">Dashboard</a></li>
+                <li><a href="schemes.html" data-i18n="nav.schemes">Schemes</a></li>
+                <li><a href="market.html" data-i18n="nav.market">Market</a></li>
+                <li><a href="dashboard.html" class="nav-cta" data-i18n="hero.btn.dashboard">📊 Live Dashboard</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge" data-i18n="hero.badge">
+                        🇮🇳 Digital Agriculture Mission — Ministry of Agriculture & Farmers Welfare
+                    </div>
+                    <h2>
+                        Empowering <span class="highlight">14.6 Crore</span> Farmers with
+                        <span class="highlight-green">Fair Prices</span> & Market Access
+                    </h2>
+                    <p>
+                        KisanMitra is India's unified digital companion for farmers — compare real-time mandi prices,
+                        track MSP, receive weather alerts, access government schemes, and connect directly with buyers.
+                        No middlemen. No information gaps. Just <strong>Kisan First</strong>.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="dashboard.html" class="btn btn-primary btn-lg" data-i18n="hero.btn.dashboard">
+                            📊 View Live Mandi Prices
+                        </a>
+                        <a href="schemes.html" class="btn btn-secondary btn-lg" data-i18n="hero.btn.schemes">
+                            🏛️ Schemes
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-stats" id="heroStats">
+                    <div class="hero-stat">
+                        <div class="stat-icon">👨‍🌾</div>
+                        <span class="stat-value" id="statFarmers">14.6 Cr</span>
+                        <span class="stat-label">Registered Farmers</span>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-icon">🏪</div>
+                        <span class="stat-value" id="statMandis">7,000+</span>
+                        <span class="stat-label">Active Mandis</span>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-icon">🌾</div>
+                        <span class="stat-value" id="statCommodities">300+</span>
+                        <span class="stat-label">Commodities Tracked</span>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-icon">💰</div>
+                        <span class="stat-value" id="statBeneficiaries">11.8 Cr</span>
+                        <span class="stat-label">Scheme Beneficiaries</span>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-icon">📈</div>
+                        <span class="stat-value" id="statMSP">+5.4%</span>
+                        <span class="stat-label">Avg MSP Increase</span>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-icon">🏦</div>
+                        <span class="stat-value" id="statProcurement">₹2.4L Cr</span>
+                        <span class="stat-label">e-Procurement Value</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="tagline">⚡ Platform Features</div>
+                <h2 data-i18n="feature.prices.title">Everything a Farmer Needs, In One Place</h2>
+                <p data-i18n="feature.prices.desc">KisanMitra bridges the information gap between farmers and markets
+                    with powerful digital tools</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon saffron">📊</div>
+                    <h3>Live Mandi Prices</h3>
+                    <p>Real-time commodity prices from 7,000+ mandis across India. Compare prices across districts and
+                        states to get the best deal for your produce.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">🌤️</div>
+                    <h3>Weather Alerts & Advisory</h3>
+                    <p>Location-specific 7-day weather forecasts with crop-specific advisories. Get alerts for frost,
+                        heavy rain, heatwaves, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon blue">💰</div>
+                    <h3>MSP Tracker</h3>
+                    <p>Track Minimum Support Prices for 23+ crops. Compare market prices vs MSP to ensure you're getting
+                        fair value for your harvest.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon saffron">🏪</div>
+                    <h3>Direct Market Access</h3>
+                    <p>Connect directly with verified buyers, cooperatives, and exporters. Bypass middlemen and
+                        negotiate better prices for your crops.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">🏛️</div>
+                    <h3>Government Schemes</h3>
+                    <p>Complete directory of 50+ central & state schemes — PM-KISAN, PMFBY, KCC, and more. Check
+                        eligibility and apply directly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon blue">🆘</div>
+                    <h3>Kisan Helpline</h3>
+                    <p>24/7 access to Kisan Call Center (1800-180-1551), expert advisories, soil health information, and
+                        emergency support services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section style="padding: 80px 0; background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header">
+                <div class="tagline">🔍 The Problem</div>
+                <h2>Why Indian Farmers Need KisanMitra</h2>
+                <p>Despite being the backbone of India's economy, farmers face critical challenges</p>
+            </div>
+            <div class="grid-3" id="problemGrid">
+                <div class="card" style="border-left: 4px solid var(--danger);">
+                    <div class="card-body">
+                        <h3 style="font-size:2.2rem;font-weight:800;color:var(--danger);margin-bottom:8px;">40%</h3>
+                        <h4 style="font-weight:700;margin-bottom:8px;">Price Loss to Middlemen</h4>
+                        <p style="font-size:0.85rem;color:var(--text-secondary);">Farmers receive only 10-35% of the
+                            retail price paid by consumers. Middlemen capture the majority of value in the supply chain.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--warning);">
+                    <div class="card-body">
+                        <h3 style="font-size:2.2rem;font-weight:800;color:var(--warning);margin-bottom:8px;">72%</h3>
+                        <h4 style="font-weight:700;margin-bottom:8px;">Lack Price Information</h4>
+                        <p style="font-size:0.85rem;color:var(--text-secondary);">The majority of small and marginal
+                            farmers have no access to real-time market prices, leading to distress sales at low prices.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--info);">
+                    <div class="card-body">
+                        <h3 style="font-size:2.2rem;font-weight:800;color:var(--info);margin-bottom:8px;">86%</h3>
+                        <h4 style="font-weight:700;margin-bottom:8px;">Small & Marginal Farmers</h4>
+                        <p style="font-size:0.85rem;color:var(--text-secondary);">86% of India's farmers are small &
+                            marginal with less than 2 hectares, making them most vulnerable to market exploitation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section style="padding: 80px 0; background: var(--white);">
+        <div class="container">
+            <div class="section-header">
+                <div class="tagline">🔄 How It Works</div>
+                <h2>Simple Steps to Fair Prices</h2>
+                <p>KisanMitra makes agricultural market access simple and transparent</p>
+            </div>
+            <div class="features-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div style="text-align:center;padding:20px;">
+                    <div
+                        style="width:70px;height:70px;border-radius:50%;background:var(--saffron-light);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                        📍
+                        <span
+                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--saffron);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">1</span>
+                    </div>
+                    <h4 style="font-weight:700;margin-bottom:6px;">Select Location</h4>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);">Choose your state, district, and nearest
+                        mandi</p>
+                </div>
+                <div style="text-align:center;padding:20px;">
+                    <div
+                        style="width:70px;height:70px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                        🌾
+                        <span
+                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--green);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">2</span>
+                    </div>
+                    <h4 style="font-weight:700;margin-bottom:6px;">Select Commodity</h4>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);">Pick from 300+ commodities — cereals,
+                        pulses, vegetables, spices</p>
+                </div>
+                <div style="text-align:center;padding:20px;">
+                    <div
+                        style="width:70px;height:70px;border-radius:50%;background:var(--info-bg);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                        📊
+                        <span
+                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--info);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">3</span>
+                    </div>
+                    <h4 style="font-weight:700;margin-bottom:6px;">Compare Prices</h4>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);">View prices across mandis, check MSP, and
+                        analyze trends</p>
+                </div>
+                <div style="text-align:center;padding:20px;">
+                    <div
+                        style="width:70px;height:70px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                        🤝
+                        <span
+                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--success);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">4</span>
+                    </div>
+                    <h4 style="font-weight:700;margin-bottom:6px;">Sell at Best Price</h4>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);">Connect with buyers or sell at the mandi
+                        offering the best rates</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Price Check -->
+    <section style="padding: 80px 0; background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header">
+                <div class="tagline" data-i18n="msp.tagline">💰 MSP Reference 2024-25</div>
+                <h2 data-i18n="msp.title">Minimum Support Prices — Government of India</h2>
+                <p data-i18n="msp.subtitle">Official MSP rates approved by Cabinet Committee on Economic Affairs (CCEA)
+                    for 23 crops</p>
+            </div>
+            <div class="card">
+                <div class="card-body no-padding">
+                    <div class="table-responsive">
+                        <table class="data-table" id="quickPriceTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="th.commodity">Commodity</th>
+                                    <th data-i18n="th.season">Season / Year</th>
+                                    <th data-i18n="th.msp">MSP (₹/Qt)</th>
+                                    <th data-i18n="th.cost">Cost A2+FL</th>
+                                    <th data-i18n="th.margin" scope="col">MSP over Cost</th>
+                                    <th data-i18n="th.action" scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="quickPriceBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:30px;">
+                <a href="dashboard.html" class="btn btn-primary btn-lg">View Complete Dashboard →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Helpline Banner -->
+    <div class="container" style="margin-top: 20px;">
+        <div class="helpline-banner">
+            <div>
+                <h3>🆘 Kisan Call Center — 24/7 Helpline</h3>
+                <p>Get expert advice on crop management, weather, soil health, government schemes, and market prices</p>
+            </div>
+            <div class="helpline-number">
+                📞 1800-180-1551
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="tricolor-divider"></div>
+        <div class="container" style="padding-top: 40px;">
+            <div class="footer-grid">
+                <div>
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                        <div
+                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                            🌾</div>
+                        <div>
+                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                                KisanMitra</h3>
+                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                        </div>
+                    </div>
+                    <p>India's unified digital companion for farmers. Real-time mandi prices, weather alerts, MSP
+                        tracking, government schemes, and direct market access — all in one platform.</p>
+                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                        Ministry of Agriculture & Farmers Welfare, Government of India.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="dashboard.html">📊 Mandi Prices</a></li>
+                        <li><a href="schemes.html">🏛️ Government Schemes</a></li>
+                        <li><a href="market.html">🏪 Direct Market</a></li>
+                        <li><a href="#">💰 MSP Tracker</a></li>
+                        <li><a href="#">🌤️ Weather Alerts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Government Portals</h4>
+                    <ul>
+                        <li><a href="https://enam.gov.in" target="_blank">eNAM Portal</a></li>
+                        <li><a href="https://agmarknet.gov.in" target="_blank">Agmarknet</a></li>
+                        <li><a href="https://pmkisan.gov.in" target="_blank">PM-KISAN</a></li>
+                        <li><a href="https://pmfby.gov.in" target="_blank">PM Fasal Bima</a></li>
+                        <li><a href="https://soilhealth.dac.gov.in" target="_blank">Soil Health Card</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Helpline & Support</h4>
+                    <ul>
+                        <li><a href="tel:18001801551">📞 Kisan Call Center: 1800-180-1551</a></li>
+                        <li><a href="#">📧 support@kisanmitra.gov.in</a></li>
+                        <li><a href="#">📍 Krishi Bhawan, New Delhi</a></li>
+                        <li><a href="#">❓ FAQ</a></li>
+                        <li><a href="#">📋 Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 KisanMitra — Ministry of Agriculture & Farmers Welfare, Government of India. All rights
+                    reserved.</span>
+                <div class="footer-govt-logos">
+                    <span>🇮🇳 Digital India</span>
+                    <span>|</span>
+                    <span>Made with ❤️ for Indian Farmers</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+    <script src="js/api.js?v=5"></script>
+    <script src="js/data.js?v=5"></script>
+    <script src="js/i18n.js?v=5"></script>
+    <script type="module" src="js/app.js?v=5"></script>
+
+    <!-- Service Worker & PWA Install -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => {
+                        console.log('[SW] Registered:', reg.scope);
+                        reg.onupdatefound = () => {
+                            const newWorker = reg.installing;
+                            newWorker.onstatechange = () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    if (window.UI) window.UI.showToast('New update available! Refresh to update.', 'info');
+                                }
+                            };
+                        };
+                    })
+                    .catch(err => console.warn('[SW] Registration failed:', err));
+            });
+        }
+        // PWA Install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.createElement('div');
+            banner.id = 'installBanner';
+            banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#FF9933,#e68a00);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:9999;font-family:inherit;box-shadow:0 -4px 20px rgba(0,0,0,0.2);';
+            banner.innerHTML = '<div><strong>📱 Install KisanMitra</strong><br><span style="font-size:0.8rem;opacity:0.9;">Quick access from your home screen</span></div><div><button onclick="installPWA()" style="background:#fff;color:#FF9933;border:none;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;margin-right:8px;">Install</button><button onclick="this.parentElement.parentElement.remove()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);padding:10px 16px;border-radius:8px;cursor:pointer;">Later</button></div>';
+            document.body.appendChild(banner);
+        });
+        function installPWA() {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(result => {
+                console.log('[PWA] Install:', result.outcome);
+                deferredPrompt = null;
+                const banner = document.getElementById('installBanner');
+                if (banner) banner.remove();
+            });
+        }
+    </script>
+</body>
+
+</html>
