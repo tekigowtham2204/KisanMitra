@@ -3,12 +3,98 @@
     <path d="M12 3v18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
     <path d="M12 8c-2.2 0-4-1.8-4-4 2.2 0 4 1.8 4 4Zm0 0c2.2 0 4-1.8 4-4-2.2 0-4 1.8-4 4Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
     <path d="M12 12c-2.4 0-4.4-1.9-4.4-4.4 2.4 0 4.4 1.9 4.4 4.4Zm0 0c2.4 0 4.4-1.9 4.4-4.4-2.4 0-4.4 1.9-4.4 4.4Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-    <path d="M12 16c-2.6 0-4.8-2.1-4.8-4.8 2.6 0 4.8 2.1 4.8 4.8Zm0 0c2.6 0 4.8-2.1 4.8-4.8-2.6 0-4.8 1.1-4.8 4.8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M12 16c-2.6 0-4.8-2.1-4.8-4.8 2.6 0 4.8 2.1 4.8 4.8Zm0 0c2.6 0 4.8-2.1 4.8-4.8-2.6 0-4.8 2.1-4.8 4.8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
   </symbol>
   <symbol id="km-chart" viewBox="0 0 24 24">
     <rect x="4" y="12" width="3" height="8" rx="1" fill="currentColor"/>
     <rect x="10.5" y="9" width="3" height="11" rx="1" fill="currentColor"/>
     <rect x="17" y="5" width="3" height="15" rx="1" fill="currentColor"/>
     <path d="M4 4h16" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+  </symbol>
+  <symbol id="km-temple" viewBox="0 0 24 24">
+    <path d="M12 3 3 8h18L12 3Z" fill="currentColor"/>
+    <rect x="5" y="9" width="2.2" height="8" rx="0.6" fill="currentColor"/>
+    <rect x="10.9" y="9" width="2.2" height="8" rx="0.6" fill="currentColor"/>
+    <rect x="16.8" y="9" width="2.2" height="8" rx="0.6" fill="currentColor"/>
+    <rect x="3" y="18" width="18" height="2.5" rx="1.2" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-store" viewBox="0 0 24 24">
+    <path d="M4 8h16l-1.1 3.9a2.4 2.4 0 0 1-2.3 1.7H7.4a2.4 2.4 0 0 1-2.3-1.7L4 8Z" fill="currentColor"/>
+    <path d="M6 13.5h12V21H6z" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <rect x="8" y="15.5" width="3" height="5.5" rx="0.7" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-rupee" viewBox="0 0 24 24">
+    <path d="M6 6h12M6 10h12M8 6c2.5 0 4.5 1.2 4.5 4S10.5 14 8 14h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="m10 14 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-weather" viewBox="0 0 24 24">
+    <circle cx="8" cy="8" r="3.2" fill="currentColor" opacity="0.9"/>
+    <path d="M14 18H7.5a3.5 3.5 0 1 1 .6-6.9A4.4 4.4 0 0 1 16 11a3.5 3.5 0 0 1-2 7Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-help" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M9.8 9.3a2.6 2.6 0 1 1 3.6 2.4c-.9.4-1.4 1-1.4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="12" cy="17" r="1" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-phone" viewBox="0 0 24 24">
+    <path d="M7 4h3l1.2 3.2-1.6 1.6a13 13 0 0 0 5.6 5.6l1.6-1.6L20 14v3c0 1-.8 1.8-1.8 1.8A15.2 15.2 0 0 1 5.2 5.8C5.2 4.8 6 4 7 4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="km-flag-in" viewBox="0 0 24 24">
+    <rect x="4" y="5" width="14" height="3.6" fill="#FF9933"/>
+    <rect x="4" y="8.6" width="14" height="3.8" fill="#FFFFFF"/>
+    <rect x="4" y="12.4" width="14" height="3.6" fill="#138808"/>
+    <circle cx="11" cy="10.5" r="1.25" fill="none" stroke="#000080" stroke-width="0.7"/>
+    <path d="M11 9.25v2.5M9.75 10.5h2.5" stroke="#000080" stroke-width="0.55"/>
+    <path d="M4 4v14" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-farmer" viewBox="0 0 24 24">
+    <circle cx="12" cy="9" r="3" fill="currentColor"/>
+    <path d="M6 20a6 6 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M6 7.5c2.4-2.3 9.6-2.3 12 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-trend" viewBox="0 0 24 24">
+    <path d="M4 16 9.5 10.5 13 14l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16 7h4v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-bank" viewBox="0 0 24 24">
+    <path d="M12 3 3 7.5h18L12 3Z" fill="currentColor"/>
+    <rect x="5" y="9" width="2" height="8" fill="currentColor"/>
+    <rect x="11" y="9" width="2" height="8" fill="currentColor"/>
+    <rect x="17" y="9" width="2" height="8" fill="currentColor"/>
+    <rect x="3" y="18" width="18" height="2.5" rx="1" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-search" viewBox="0 0 24 24">
+    <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="m15 15 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-location" viewBox="0 0 24 24">
+    <path d="M12 21s6-5.4 6-10a6 6 0 1 0-12 0c0 4.6 6 10 6 10Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="12" cy="11" r="2" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-handshake" viewBox="0 0 24 24">
+    <path d="M8.3 10.8 5.6 8.2a2.6 2.6 0 0 0-3.6 3.6l2.6 2.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="m15.7 10.8 2.7-2.6a2.6 2.6 0 1 1 3.6 3.6l-2.6 2.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="m8 11 2.8 2.7a1.8 1.8 0 0 0 2.5 0L16 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M9 15 7 17m8-2 2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-eye" viewBox="0 0 24 24">
+    <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="12" cy="12" r="2.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="km-heart" viewBox="0 0 24 24">
+    <path d="M12 20s-7-4.5-9-8.7C1.5 7.8 4.1 5 7.1 5c2 0 3.3 1 4.1 2.2C12 6 13.3 5 15.3 5c3 0 5.6 2.8 4.1 6.3C19 15.5 12 20 12 20Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="km-feedback" viewBox="0 0 24 24">
+    <rect x="4" y="4" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="km-mail" viewBox="0 0 24 24">
+    <rect x="3.5" y="5" width="17" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="m4.5 7.2 7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="km-install" viewBox="0 0 24 24">
+    <rect x="6.5" y="3" width="11" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <path d="m12 8.5 3 3h-2v3h-2v-3H9l3-3Z" fill="currentColor"/>
+    <circle cx="12" cy="18" r="1" fill="currentColor"/>
   </symbol>
 </svg>
