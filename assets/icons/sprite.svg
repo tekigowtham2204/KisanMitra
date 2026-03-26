@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="km-wheat" viewBox="0 0 24 24">
+    <path d="M12 3v18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M12 8c-2.2 0-4-1.8-4-4 2.2 0 4 1.8 4 4Zm0 0c2.2 0 4-1.8 4-4-2.2 0-4 1.8-4 4Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M12 12c-2.4 0-4.4-1.9-4.4-4.4 2.4 0 4.4 1.9 4.4 4.4Zm0 0c2.4 0 4.4-1.9 4.4-4.4-2.4 0-4.4 1.9-4.4 4.4Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M12 16c-2.6 0-4.8-2.1-4.8-4.8 2.6 0 4.8 2.1 4.8 4.8Zm0 0c2.6 0 4.8-2.1 4.8-4.8-2.6 0-4.8 1.1-4.8 4.8Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  </symbol>
+  <symbol id="km-chart" viewBox="0 0 24 24">
+    <rect x="4" y="12" width="3" height="8" rx="1" fill="currentColor"/>
+    <rect x="10.5" y="9" width="3" height="11" rx="1" fill="currentColor"/>
+    <rect x="17" y="5" width="3" height="15" rx="1" fill="currentColor"/>
+    <path d="M4 4h16" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+  </symbol>
+</svg>
