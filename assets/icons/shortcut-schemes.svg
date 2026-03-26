@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Schemes shortcut icon">
+  <rect width="96" height="96" rx="16" fill="#138808"/>
+  <path d="M48 16 18 30h60L48 16Z" fill="#fff"/>
+  <rect x="24" y="34" width="8" height="28" fill="#fff"/>
+  <rect x="44" y="34" width="8" height="28" fill="#fff"/>
+  <rect x="64" y="34" width="8" height="28" fill="#fff"/>
+  <rect x="18" y="66" width="60" height="10" rx="3" fill="#fff"/>
+</svg>
