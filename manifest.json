@@ -1,7 +1,7 @@
 {
     "name": "KisanMitra — Farmer's Digital Companion",
     "short_name": "KisanMitra",
-    "description": "Real-time mandi prices, weather advisories, MSP data, and government scheme information for Indian farmers. Powered by data.gov.in.",
+    "description": "KisanMitra is an open-source multilingual PWA for Indian farmers with live mandi prices, MSP intelligence, weather advisories, schemes, and direct market access.",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#0f1729",
@@ -17,13 +17,13 @@
     "scope": "./",
     "icons": [
         {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23FF9933'/><text x='96' y='120' font-size='100' text-anchor='middle' fill='white'>🌾</text></svg>",
+            "src": "assets/icons/icon-192.svg",
             "sizes": "192x192",
             "type": "image/svg+xml",
             "purpose": "any"
         },
         {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%23FF9933'/><text x='256' y='320' font-size='260' text-anchor='middle' fill='white'>🌾</text></svg>",
+            "src": "assets/icons/icon-512.svg",
             "sizes": "512x512",
             "type": "image/svg+xml",
             "purpose": "any maskable"
@@ -37,7 +37,7 @@
             "url": "dashboard.html",
             "icons": [
                 {
-                    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect width='96' height='96' rx='16' fill='%23138808'/><text x='48' y='64' font-size='50' text-anchor='middle' fill='white'>📊</text></svg>",
+                    "src": "assets/icons/shortcut-dashboard.svg",
                     "sizes": "96x96"
                 }
             ]
@@ -48,7 +48,7 @@
             "url": "schemes.html",
             "icons": [
                 {
-                    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect width='96' height='96' rx='16' fill='%23138808'/><text x='48' y='64' font-size='50' text-anchor='middle' fill='white'>🏛️</text></svg>",
+                    "src": "assets/icons/shortcut-schemes.svg",
                     "sizes": "96x96"
                 }
             ]
@@ -59,7 +59,7 @@
             "url": "market.html",
             "icons": [
                 {
-                    "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect width='96' height='96' rx='16' fill='%23138808'/><text x='48' y='64' font-size='50' text-anchor='middle' fill='white'>🏪</text></svg>",
+                    "src": "assets/icons/shortcut-market.svg",
                     "sizes": "96x96"
                 }
             ]
