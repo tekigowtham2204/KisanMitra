@@ -6,6 +6,7 @@
 import { Utils } from './modules/utils.js';
 import { AppState } from './modules/state.js';
 import { UI } from './modules/ui.js';
+import { initEmojiToSvgIcons } from './modules/iconify.js';
 
 // ── Initialize on DOM ready ──
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'schemes': initSchemes(); break;
         case 'market': initMarket(); break;
     }
+
+    // Replace emoji glyphs with themed SVG icons in both static and dynamic UI.
+    initEmojiToSvgIcons();
 });
 
 function detectPage() {
@@ -158,6 +162,17 @@ function initDashboard() {
         });
     }
 
+    const districtSelect = document.getElementById('districtSelect');
+    if (districtSelect) {
+        districtSelect.addEventListener('change', () => {
+            const state = document.getElementById('stateSelect')?.value;
+            const district = districtSelect.value;
+            if (district && state) {
+                loadWeather(`${district}, ${state}`);
+            }
+        });
+    }
+
     // Category filter
     const catSelect = document.getElementById('categorySelect');
     if (catSelect) {
@@ -236,10 +251,14 @@ function onStateChange() {
         });
     }
 
-    const city = window.KisanData.STATE_WEATHER_CITIES[state];
-    if (city) {
-        loadWeather(city);
+    const district = document.getElementById('districtSelect')?.value;
+    if (district) {
+        loadWeather(`${district}, ${state}`);
+        return;
     }
+
+    const city = window.KisanData.STATE_WEATHER_CITIES[state];
+    if (city) loadWeather(city);
 }
 
 
@@ -529,14 +548,14 @@ function initWeatherWithLocation() {
     if (navigator.geolocation) {
         let resolved = false;
 
-        // Manual safeguard: fallback after 3s even if browser ignores timeout option
+        // Manual safeguard: fallback after 10s even if browser ignores timeout option
         const fallbackTimer = setTimeout(() => {
             if (!resolved) {
                 resolved = true;
                 console.warn('Geolocation timeout — using default city');
                 loadWeather('Delhi');
             }
-        }, 3000);
+        }, 10000);
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -554,7 +573,11 @@ function initWeatherWithLocation() {
                 // Fallback to default city
                 loadWeather('Delhi');
             },
-            { timeout: 3000, maximumAge: 300000 } // 3s timeout, accept cached position up to 5 min old
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 60000,
+            }
         );
     } else {
         // Fallback if no geolocation support
@@ -570,7 +593,10 @@ async function loadWeather(query) {
         ]);
 
         // Update UI
-        document.getElementById('weatherLocation').textContent = current.location;
+        const coordinateText = (typeof current.lat === 'number' && typeof current.lon === 'number')
+            ? ` (${current.lat.toFixed(4)}, ${current.lon.toFixed(4)})`
+            : '';
+        document.getElementById('weatherLocation').textContent = `${current.location}${coordinateText}`;
         document.getElementById('weatherTemp').textContent = `${current.temp}°C`;
         document.getElementById('weatherCondition').textContent = current.condition;
         document.getElementById('weatherIcon').textContent = current.icon;
