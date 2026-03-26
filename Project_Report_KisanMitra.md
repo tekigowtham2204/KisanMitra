@@ -37,7 +37,7 @@ The application follows a modular monolith architecture on the frontend:
 ## 5. Deployment
 The project is version-controlled using Git and is deployed live using GitHub Pages.
 - **Live URL:** [https://tekigowtham2204.github.io/KisanMitra/](https://tekigowtham2204.github.io/KisanMitra/)
-- **GitHub Repository:** [https://github.com/tekigowtham2204/KisanMitra](https://github.com/tekigowtham2204/KisanMitra)
+- **GitHub Repository:** [https://github.com/tekigowtham2204/KisanMitra/](https://github.com/tekigowtham2204/KisanMitra/)
 
 ## 6. Conclusion
 KisanMitra successfully demonstrates the application of core Internet Programming concepts (HTML, CSS, JS, APIs, PWAs) to solve a real-world problem. By providing farmers with transparent market data and access to schemes, it aims to reduce dependency on middlemen and improve agricultural livelihoods.
