@@ -313,7 +313,9 @@
         const d = await resp.json();
 
         const result = {
-            location: `${d.name}, India`,
+            location: `${d.name}, ${d.sys?.country || 'IN'}`,
+            lat: typeof d.coord?.lat === 'number' ? d.coord.lat : null,
+            lon: typeof d.coord?.lon === 'number' ? d.coord.lon : null,
             temp: Math.round(d.main.temp),
             feelsLike: Math.round(d.main.feels_like),
             tempMin: Math.round(d.main.temp_min),
