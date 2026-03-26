@@ -2,8 +2,8 @@
 // KisanMitra — Service Worker (Offline Support + Caching)
 // ============================================================
 // Storage
-const CACHE_NAME = 'kisanmitra-v5';
-const DATA_CACHE = 'kisanmitra-data-v5';
+const CACHE_NAME = 'kisanmitra-v6';
+const DATA_CACHE = 'kisanmitra-data-v6';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install
@@ -22,8 +22,18 @@ const PRECACHE_URLS = [
     'js/modules/utils.js',
     'js/modules/state.js',
     'js/modules/ui.js',
+    'js/modules/iconify.js',
     'js/modules/db.js',
     'manifest.json',
+    'assets/icons/sprite.svg',
+    'assets/icons/logo.svg',
+    'assets/icons/favicon.svg',
+    'assets/icons/apple-touch-icon.svg',
+    'assets/icons/icon-192.svg',
+    'assets/icons/icon-512.svg',
+    'assets/icons/shortcut-dashboard.svg',
+    'assets/icons/shortcut-schemes.svg',
+    'assets/icons/shortcut-market.svg',
 ];
 
 // Install — precache core files
