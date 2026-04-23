@@ -27,6 +27,7 @@
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/redesign.css">
 </head>
 
 <body>
@@ -35,21 +36,18 @@
         <div class="container">
             <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
             <div>
-                <select id="langSelect" class="lang-select"
-                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
-                    <option value="en" style="color:#0f1729;">English</option>
-                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
-                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
-                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
-                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
-                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
-                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
-                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                <select id="langSelect" class="lang-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu">ગુજરાતી (Gujarati)</option>
                 </select>
 
-                <button class="hc-toggle"
-                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
-                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+                <button class="hc-toggle" title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
             </div>
         </div>
     </div>
@@ -199,7 +197,7 @@
     </section>
 
     <!-- Problem Statement Section -->
-    <section style="padding: 80px 0; background: var(--bg-primary);">
+    <section class="section-block bg-light">
         <div class="container">
             <div class="section-header">
                 <div class="tagline">🔍 The Problem</div>
@@ -207,29 +205,29 @@
                 <p>Despite being the backbone of India's economy, farmers face critical challenges</p>
             </div>
             <div class="grid-3" id="problemGrid">
-                <div class="card" style="border-left: 4px solid var(--danger);">
+                <div class="card problem-card danger">
                     <div class="card-body">
-                        <h3 style="font-size:2.2rem;font-weight:800;color:var(--danger);margin-bottom:8px;">40%</h3>
-                        <h4 style="font-weight:700;margin-bottom:8px;">Price Loss to Middlemen</h4>
-                        <p style="font-size:0.85rem;color:var(--text-secondary);">Farmers receive only 10-35% of the
+                        <h3 class="problem-stat tone-danger-text">40%</h3>
+                        <h4 class="problem-title">Price Loss to Middlemen</h4>
+                        <p class="problem-copy">Farmers receive only 10-35% of the
                             retail price paid by consumers. Middlemen capture the majority of value in the supply chain.
                         </p>
                     </div>
                 </div>
-                <div class="card" style="border-left: 4px solid var(--warning);">
+                <div class="card problem-card warning">
                     <div class="card-body">
-                        <h3 style="font-size:2.2rem;font-weight:800;color:var(--warning);margin-bottom:8px;">72%</h3>
-                        <h4 style="font-weight:700;margin-bottom:8px;">Lack Price Information</h4>
-                        <p style="font-size:0.85rem;color:var(--text-secondary);">The majority of small and marginal
+                        <h3 class="problem-stat tone-warning-text">72%</h3>
+                        <h4 class="problem-title">Lack Price Information</h4>
+                        <p class="problem-copy">The majority of small and marginal
                             farmers have no access to real-time market prices, leading to distress sales at low prices.
                         </p>
                     </div>
                 </div>
-                <div class="card" style="border-left: 4px solid var(--info);">
+                <div class="card problem-card info">
                     <div class="card-body">
-                        <h3 style="font-size:2.2rem;font-weight:800;color:var(--info);margin-bottom:8px;">86%</h3>
-                        <h4 style="font-weight:700;margin-bottom:8px;">Small & Marginal Farmers</h4>
-                        <p style="font-size:0.85rem;color:var(--text-secondary);">86% of India's farmers are small &
+                        <h3 class="problem-stat tone-info-text">86%</h3>
+                        <h4 class="problem-title">Small & Marginal Farmers</h4>
+                        <p class="problem-copy">86% of India's farmers are small &
                             marginal with less than 2 hectares, making them most vulnerable to market exploitation.</p>
                     </div>
                 </div>
@@ -238,56 +236,48 @@
     </section>
 
     <!-- How It Works -->
-    <section style="padding: 80px 0; background: var(--white);">
+    <section class="section-block bg-white">
         <div class="container">
             <div class="section-header">
                 <div class="tagline">🔄 How It Works</div>
                 <h2>Simple Steps to Fair Prices</h2>
                 <p>KisanMitra makes agricultural market access simple and transparent</p>
             </div>
-            <div class="features-grid" style="grid-template-columns: repeat(4, 1fr);">
-                <div style="text-align:center;padding:20px;">
-                    <div
-                        style="width:70px;height:70px;border-radius:50%;background:var(--saffron-light);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon tone-saffron-bg">
                         📍
-                        <span
-                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--saffron);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">1</span>
+                        <span class="step-no tone-saffron-solid">1</span>
                     </div>
-                    <h4 style="font-weight:700;margin-bottom:6px;">Select Location</h4>
-                    <p style="font-size:0.85rem;color:var(--text-secondary);">Choose your state, district, and nearest
+                    <h4 class="step-title">Select Location</h4>
+                    <p class="step-copy">Choose your state, district, and nearest
                         mandi</p>
                 </div>
-                <div style="text-align:center;padding:20px;">
-                    <div
-                        style="width:70px;height:70px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                <div class="step-card">
+                    <div class="step-icon tone-green-bg">
                         🌾
-                        <span
-                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--green);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">2</span>
+                        <span class="step-no tone-green-solid">2</span>
                     </div>
-                    <h4 style="font-weight:700;margin-bottom:6px;">Select Commodity</h4>
-                    <p style="font-size:0.85rem;color:var(--text-secondary);">Pick from 300+ commodities — cereals,
+                    <h4 class="step-title">Select Commodity</h4>
+                    <p class="step-copy">Pick from 300+ commodities — cereals,
                         pulses, vegetables, spices</p>
                 </div>
-                <div style="text-align:center;padding:20px;">
-                    <div
-                        style="width:70px;height:70px;border-radius:50%;background:var(--info-bg);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                <div class="step-card">
+                    <div class="step-icon tone-info-bg">
                         📊
-                        <span
-                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--info);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">3</span>
+                        <span class="step-no tone-info-solid">3</span>
                     </div>
-                    <h4 style="font-weight:700;margin-bottom:6px;">Compare Prices</h4>
-                    <p style="font-size:0.85rem;color:var(--text-secondary);">View prices across mandis, check MSP, and
+                    <h4 class="step-title">Compare Prices</h4>
+                    <p class="step-copy">View prices across mandis, check MSP, and
                         analyze trends</p>
                 </div>
-                <div style="text-align:center;padding:20px;">
-                    <div
-                        style="width:70px;height:70px;border-radius:50%;background:var(--success-bg);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;position:relative;">
+                <div class="step-card">
+                    <div class="step-icon tone-success-bg">
                         🤝
-                        <span
-                            style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;background:var(--success);border-radius:50%;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">4</span>
+                        <span class="step-no tone-success-solid">4</span>
                     </div>
-                    <h4 style="font-weight:700;margin-bottom:6px;">Sell at Best Price</h4>
-                    <p style="font-size:0.85rem;color:var(--text-secondary);">Connect with buyers or sell at the mandi
+                    <h4 class="step-title">Sell at Best Price</h4>
+                    <p class="step-copy">Connect with buyers or sell at the mandi
                         offering the best rates</p>
                 </div>
             </div>
@@ -295,7 +285,7 @@
     </section>
 
     <!-- Quick Price Check -->
-    <section style="padding: 80px 0; background: var(--bg-primary);">
+    <section class="section-block bg-light">
         <div class="container">
             <div class="section-header">
                 <div class="tagline" data-i18n="msp.tagline">💰 MSP Reference 2024-25</div>
@@ -324,14 +314,14 @@
                     </div>
                 </div>
             </div>
-            <div style="text-align:center;margin-top:30px;">
+            <div class="center-actions">
                 <a href="dashboard.html" class="btn btn-primary btn-lg">View Complete Dashboard →</a>
             </div>
         </div>
     </section>
 
     <!-- Helpline Banner -->
-    <div class="container" style="margin-top: 20px;">
+    <div class="container hero-help-wrap">
         <div class="helpline-banner">
             <div>
                 <h3>🆘 Kisan Call Center — 24/7 Helpline</h3>
@@ -346,26 +336,25 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="tricolor-divider"></div>
-        <div class="container" style="padding-top: 40px;">
+        <div class="container footer-pad-top">
             <div class="footer-grid">
                 <div>
-                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-                        <div
-                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                    <div class="footer-brand">
+                        <div class="footer-brand-logo">
                             🌾</div>
                         <div>
-                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                            <h3 class="footer-brand-title">
                                 KisanMitra</h3>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                            <span class="footer-brand-sub">किसानमित्र</span>
                         </div>
                     </div>
                     <p>KisanMitra is an open-source multilingual PWA for Indian farmers with live mandi prices, MSP
                         intelligence, weather advisories, government schemes, and direct market access.</p>
-                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                    <p class="footer-note">An initiative under the Digital Agriculture Mission,
                         Ministry of Agriculture & Farmers Welfare, Government of India.</p>
-                    <p style="margin-top:12px;font-size:0.8rem;">
+                    <p class="footer-links-row">
                         <a href="https://tekigowtham2204.github.io/KisanMitra/" target="_blank" rel="noopener noreferrer">Live URL</a>
-                        <span style="opacity:0.6;"> | </span>
+                        <span class="sep"> | </span>
                         <a href="https://github.com/tekigowtham2204/KisanMitra/" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
                     </p>
                 </div>
@@ -446,8 +435,8 @@
             deferredPrompt = e;
             const banner = document.createElement('div');
             banner.id = 'installBanner';
-            banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#FF9933,#e68a00);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:9999;font-family:inherit;box-shadow:0 -4px 20px rgba(0,0,0,0.2);';
-            banner.innerHTML = '<div><strong>📱 Install KisanMitra</strong><br><span style="font-size:0.8rem;opacity:0.9;">Quick access from your home screen</span></div><div><button onclick="installPWA()" style="background:#fff;color:#FF9933;border:none;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;margin-right:8px;">Install</button><button onclick="this.parentElement.parentElement.remove()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);padding:10px 16px;border-radius:8px;cursor:pointer;">Later</button></div>';
+            banner.className = 'install-banner';
+            banner.innerHTML = '<div><strong>📱 Install KisanMitra</strong><br><small>Quick access from your home screen</small></div><div class="install-banner-actions"><button onclick="installPWA()" class="install-btn">Install</button><button onclick="this.parentElement.parentElement.remove()" class="later-btn">Later</button></div>';
             document.body.appendChild(banner);
         });
         function installPWA() {

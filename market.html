@@ -25,6 +25,7 @@
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/redesign.css">
 </head>
 
 <body>
@@ -33,21 +34,18 @@
         <div class="container">
             <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
             <div>
-                <select id="langSelect" class="lang-select"
-                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
-                    <option value="en" style="color:#0f1729;">English</option>
-                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
-                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
-                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
-                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
-                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
-                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
-                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                <select id="langSelect" class="lang-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu">ગુજરાતી (Gujarati)</option>
                 </select>
 
-                <button class="hc-toggle"
-                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
-                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+                <button class="hc-toggle" title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
             </div>
         </div>
     </div>
@@ -96,9 +94,9 @@
     <section class="dashboard">
         <div class="container">
             <!-- Stats -->
-            <div class="quick-stats" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="quick-stats layout-4">
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--saffron-light);">🤝</div>
+                    <div class="stat-icon-box tone-saffron">🤝</div>
                     <div class="stat-info">
                         <h4>Verified Buyers</h4>
                         <span class="value">2,847</span>
@@ -106,7 +104,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--green-light);">💰</div>
+                    <div class="stat-icon-box tone-green">💰</div>
                     <div class="stat-info">
                         <h4>Total Trade Value</h4>
                         <span class="value">₹485 Cr</span>
@@ -114,7 +112,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--info-bg);">📦</div>
+                    <div class="stat-icon-box tone-info">📦</div>
                     <div class="stat-info">
                         <h4>Active Listings</h4>
                         <span class="value">12,340</span>
@@ -122,7 +120,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--success-bg);">👨‍🌾</div>
+                    <div class="stat-icon-box tone-warning">👨‍🌾</div>
                     <div class="stat-info">
                         <h4>Farmer Avg Gain</h4>
                         <span class="value">+18%</span>
@@ -132,33 +130,18 @@
             </div>
 
             <!-- How it works -->
-            <div class="card" style="margin-bottom:24px;">
-                <div class="card-body" style="padding:24px 28px;">
-                    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center;">
-                        <div style="text-align:center;flex:1;min-width:160px;">
-                            <div style="font-size:2rem;margin-bottom:6px;">👨‍🌾</div>
-                            <strong style="font-size:0.85rem;">Farmer Lists Produce</strong>
-                        </div>
-                        <div style="font-size:1.5rem;color:var(--saffron);">→</div>
-                        <div style="text-align:center;flex:1;min-width:160px;">
-                            <div style="font-size:2rem;margin-bottom:6px;">🔍</div>
-                            <strong style="font-size:0.85rem;">Buyers Browse & Bid</strong>
-                        </div>
-                        <div style="font-size:1.5rem;color:var(--saffron);">→</div>
-                        <div style="text-align:center;flex:1;min-width:160px;">
-                            <div style="font-size:2rem;margin-bottom:6px;">🤝</div>
-                            <strong style="font-size:0.85rem;">Price Negotiation</strong>
-                        </div>
-                        <div style="font-size:1.5rem;color:var(--saffron);">→</div>
-                        <div style="text-align:center;flex:1;min-width:160px;">
-                            <div style="font-size:2rem;margin-bottom:6px;">🚛</div>
-                            <strong style="font-size:0.85rem;">Logistics & Delivery</strong>
-                        </div>
-                        <div style="font-size:1.5rem;color:var(--green);">→</div>
-                        <div style="text-align:center;flex:1;min-width:160px;">
-                            <div style="font-size:2rem;margin-bottom:6px;">💰</div>
-                            <strong style="font-size:0.85rem;">Direct Payment</strong>
-                        </div>
+            <div class="card stack-gap-24">
+                <div class="card-body">
+                    <div class="flow-track">
+                        <div class="flow-step"><div class="icon">👨‍🌾</div><div class="label">Farmer Lists Produce</div></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step"><div class="icon">🔍</div><div class="label">Buyers Browse & Bid</div></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step"><div class="icon">🤝</div><div class="label">Price Negotiation</div></div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step"><div class="icon">🚛</div><div class="label">Logistics & Delivery</div></div>
+                        <div class="flow-arrow final">→</div>
+                        <div class="flow-step"><div class="icon">💰</div><div class="label">Direct Payment</div></div>
                     </div>
                 </div>
             </div>
@@ -176,7 +159,7 @@
             <!-- Tab Content: Buy Listings -->
             <div id="buyContent">
                 <!-- Filter -->
-                <div class="filter-bar" style="margin-bottom:20px;">
+                <div class="filter-bar spaced">
                     <label>🌾 Commodity:</label>
                     <select class="form-control" id="marketCommodityFilter" onchange="filterListings()">
                         <option value="">All Commodities</option>
@@ -191,8 +174,7 @@
                         <option value="Trader">Trader</option>
                     </select>
                     <label>✅ Verified Only:</label>
-                    <input type="checkbox" id="verifiedOnly" onchange="filterListings()" checked
-                        style="width:18px;height:18px;">
+                    <input type="checkbox" id="verifiedOnly" onchange="filterListings()" checked class="checkbox-sm">
                 </div>
 
                 <div class="grid-2" id="listingsGrid">
@@ -201,115 +183,104 @@
             </div>
 
             <!-- Tab Content: Sell -->
-            <div id="sellContent" style="display:none;">
+            <div id="sellContent" class="hidden-panel">
                 <div class="card">
                     <div class="card-header">
                         <h3>📦 List Your Produce for Sale</h3>
                     </div>
                     <div class="card-body">
-                        <form id="sellForm" onsubmit="submitSellForm(event)" style="max-width:700px;">
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                        <form id="sellForm" onsubmit="submitSellForm(event)" class="form-max">
+                            <div class="form-grid-2">
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Farmer
+                                    <label class="form-label">Farmer
                                         Name *</label>
-                                    <input type="text" class="form-control" id="sellName" required
-                                        placeholder="Enter your name" style="width:100%;">
+                                    <input type="text" class="form-control w-full" id="sellName" required
+                                        placeholder="Enter your name">
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Phone
+                                    <label class="form-label">Phone
                                         Number *</label>
-                                    <input type="tel" class="form-control" id="sellPhone" required
-                                        placeholder="+91 XXXXX XXXXX" style="width:100%;">
+                                    <input type="tel" class="form-control w-full" id="sellPhone" required
+                                        placeholder="+91 XXXXX XXXXX">
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">State
+                                    <label class="form-label">State
                                         *</label>
-                                    <select class="form-control" id="sellState" required style="width:100%;">
+                                    <select class="form-control w-full" id="sellState" required>
                                         <option value="">Select State</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">District
+                                    <label class="form-label">District
                                         *</label>
-                                    <select class="form-control" id="sellDistrict" required style="width:100%;">
+                                    <select class="form-control w-full" id="sellDistrict" required>
                                         <option value="">Select District</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Commodity
+                                    <label class="form-label">Commodity
                                         *</label>
-                                    <select class="form-control" id="sellCommodity" required style="width:100%;">
+                                    <select class="form-control w-full" id="sellCommodity" required>
                                         <option value="">Select Commodity</option>
                                         <!-- Populated dynamically by JS from KisanData.COMMODITIES -->
                                     </select>
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Quantity
+                                    <label class="form-label">Quantity
                                         (Quintals) *</label>
-                                    <input type="number" class="form-control" id="sellQuantity" required
-                                        placeholder="e.g. 50" min="1" style="width:100%;">
+                                    <input type="number" class="form-control w-full" id="sellQuantity" required
+                                        placeholder="e.g. 50" min="1">
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Expected
+                                    <label class="form-label">Expected
                                         Price (₹/Quintal)</label>
-                                    <input type="number" class="form-control" id="sellPrice" placeholder="e.g. 2500"
-                                        style="width:100%;">
+                                    <input type="number" class="form-control w-full" id="sellPrice" placeholder="e.g. 2500">
                                 </div>
                                 <div>
-                                    <label
-                                        style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Available
+                                    <label class="form-label">Available
                                         From</label>
-                                    <input type="date" class="form-control" id="sellDate" style="width:100%;">
+                                    <input type="date" class="form-control w-full" id="sellDate">
                                 </div>
                             </div>
-                            <div style="margin-top:16px;">
-                                <label
-                                    style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Additional
+                            <div class="mt-16">
+                                <label class="form-label">Additional
                                     Details</label>
-                                <textarea class="form-control" id="sellDetails" rows="3"
-                                    placeholder="Quality grade, organic certification, delivery preferences, etc."
-                                    style="width:100%;resize:vertical;"></textarea>
+                                <textarea class="form-control w-full" id="sellDetails" rows="3"
+                                    placeholder="Quality grade, organic certification, delivery preferences, etc."></textarea>
                             </div>
-                            <div style="margin-top:20px;display:flex;gap:12px;">
+                            <div class="actions-row mt-20">
                                 <button type="submit" class="btn btn-primary">📦 List for Sale</button>
                                 <button type="reset" class="btn btn-outline">Clear Form</button>
                             </div>
                         </form>
-                        <div id="sellFormResult" style="margin-top:20px;"></div>
+                        <div id="sellFormResult" class="mt-20"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Tab Content: Contract Farming -->
-            <div id="contractsContent" style="display:none;">
-                <div class="grid-2" style="margin-bottom:24px;">
+            <div id="contractsContent" class="hidden-panel">
+                <div class="grid-2 stack-gap-24">
                     <div class="card">
-                        <div class="card-body" style="text-align:center;padding:40px;">
-                            <div style="font-size:3rem;margin-bottom:12px;">📝</div>
-                            <h3 style="font-weight:700;margin-bottom:8px;">Assured Contract Farming</h3>
-                            <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">
+                        <div class="card-body contracts-summary">
+                            <div class="icon">📝</div>
+                            <h3>Assured Contract Farming</h3>
+                            <p>
                                 Get guaranteed buyers and stable income through pre-agreed contracts. Reduce market
                                 risks with assured procurement at pre-decided prices.
                             </p>
-                            <div style="display:flex;gap:30px;justify-content:center;margin-bottom:20px;">
+                            <div class="metric-row">
                                 <div>
-                                    <div style="font-size:1.5rem;font-weight:800;color:var(--green);">1,240+</div>
-                                    <div style="font-size:0.75rem;color:var(--text-muted);">Active Contracts</div>
+                                    <div class="value tone-green-text">1,240+</div>
+                                    <div class="hint">Active Contracts</div>
                                 </div>
                                 <div>
-                                    <div style="font-size:1.5rem;font-weight:800;color:var(--saffron);">₹89 Cr</div>
-                                    <div style="font-size:0.75rem;color:var(--text-muted);">Contract Value</div>
+                                    <div class="value tone-saffron-text">₹89 Cr</div>
+                                    <div class="hint">Contract Value</div>
                                 </div>
                                 <div>
-                                    <div style="font-size:1.5rem;font-weight:800;color:var(--info);">45,000+</div>
-                                    <div style="font-size:0.75rem;color:var(--text-muted);">Farmers Enrolled</div>
+                                    <div class="value tone-info-text">45,000+</div>
+                                    <div class="hint">Farmers Enrolled</div>
                                 </div>
                             </div>
                             <button class="btn btn-success"
@@ -319,52 +290,44 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h3 style="font-weight:700;margin-bottom:16px;">🏢 Active Contract Partners</h3>
+                            <h3 class="partner-list-title">🏢 Active Contract Partners</h3>
                             <div>
-                                <div
-                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
-                                    <div
-                                        style="width:44px;height:44px;background:var(--saffron-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                <div class="partner-item">
+                                    <div class="partner-icon tone-saffron">
                                         🏭</div>
-                                    <div style="flex:1;">
-                                        <strong style="font-size:0.9rem;">ITC Agri Business</strong>
-                                        <div style="font-size:0.75rem;color:var(--text-muted);">Wheat, Soybean, Rice •
+                                    <div class="partner-meta">
+                                        <strong>ITC Agri Business</strong>
+                                        <div>Wheat, Soybean, Rice •
                                             Pan India</div>
                                     </div>
                                     <span class="badge badge-success">✓ Verified</span>
                                 </div>
-                                <div
-                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
-                                    <div
-                                        style="width:44px;height:44px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                <div class="partner-item">
+                                    <div class="partner-icon tone-green">
                                         🏬</div>
-                                    <div style="flex:1;">
-                                        <strong style="font-size:0.9rem;">Mother Dairy</strong>
-                                        <div style="font-size:0.75rem;color:var(--text-muted);">Vegetables, Fruits •
+                                    <div class="partner-meta">
+                                        <strong>Mother Dairy</strong>
+                                        <div>Vegetables, Fruits •
                                             North India</div>
                                     </div>
                                     <span class="badge badge-success">✓ Verified</span>
                                 </div>
-                                <div
-                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
-                                    <div
-                                        style="width:44px;height:44px;background:var(--info-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                <div class="partner-item">
+                                    <div class="partner-icon tone-info">
                                         🌿</div>
-                                    <div style="flex:1;">
-                                        <strong style="font-size:0.9rem;">Dabur India</strong>
-                                        <div style="font-size:0.75rem;color:var(--text-muted);">Herbs, Turmeric, Honey •
+                                    <div class="partner-meta">
+                                        <strong>Dabur India</strong>
+                                        <div>Herbs, Turmeric, Honey •
                                             Select States</div>
                                     </div>
                                     <span class="badge badge-success">✓ Verified</span>
                                 </div>
-                                <div
-                                    style="display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--border-color);border-radius:8px;margin-bottom:10px;">
-                                    <div
-                                        style="width:44px;height:44px;background:var(--warning-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                                <div class="partner-item">
+                                    <div class="partner-icon tone-warning">
                                         🧴</div>
-                                    <div style="flex:1;">
-                                        <strong style="font-size:0.9rem;">Patanjali Ayurved</strong>
-                                        <div style="font-size:0.75rem;color:var(--text-muted);">Organic produce, Herbs •
+                                    <div class="partner-meta">
+                                        <strong>Patanjali Ayurved</strong>
+                                        <div>Organic produce, Herbs •
                                             North & Central India</div>
                                     </div>
                                     <span class="badge badge-success">✓ Verified</span>
@@ -376,14 +339,13 @@
             </div>
 
             <!-- Helpline -->
-            <div class="helpline-banner" style="margin-top:24px;">
+            <div class="helpline-banner stack-gap-24">
                 <div>
                     <h3>🏪 Also trade on eNAM Portal</h3>
                     <p>India's National Agriculture Market — electronic trading portal for transparent price discovery
                     </p>
                 </div>
-                <a href="https://enam.gov.in" target="_blank" class="btn btn-secondary btn-lg"
-                    style="background:rgba(255,255,255,0.2);">
+                <a href="https://enam.gov.in" target="_blank" class="btn btn-secondary btn-lg cta-muted">
                     Visit eNAM →
                 </a>
             </div>
@@ -393,26 +355,25 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="tricolor-divider"></div>
-        <div class="container" style="padding-top: 40px;">
+        <div class="container footer-pad-top">
             <div class="footer-grid">
                 <div>
-                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-                        <div
-                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                    <div class="footer-brand">
+                        <div class="footer-brand-logo">
                             🌾</div>
                         <div>
-                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                            <h3 class="footer-brand-title">
                                 KisanMitra</h3>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                            <span class="footer-brand-sub">किसानमित्र</span>
                         </div>
                     </div>
                     <p>KisanMitra is an open-source multilingual PWA for Indian farmers with live mandi prices, MSP
                         intelligence, weather advisories, government schemes, and direct market access.</p>
-                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                    <p class="footer-note">An initiative under the Digital Agriculture Mission,
                         Ministry of Agriculture & Farmers Welfare, Government of India.</p>
-                    <p style="margin-top:12px;font-size:0.8rem;">
+                    <p class="footer-links-row">
                         <a href="https://tekigowtham2204.github.io/KisanMitra/" target="_blank" rel="noopener noreferrer">Live URL</a>
-                        <span style="opacity:0.6;"> | </span>
+                        <span class="sep"> | </span>
                         <a href="https://github.com/tekigowtham2204/KisanMitra/" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
                     </p>
                 </div>

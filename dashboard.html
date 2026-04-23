@@ -72,6 +72,7 @@
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/redesign.css">
 </head>
 
 <body>
@@ -80,21 +81,18 @@
         <div class="container">
             <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
             <div>
-                <select id="langSelect" class="lang-select"
-                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
-                    <option value="en" style="color:#0f1729;">English</option>
-                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
-                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
-                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
-                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
-                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
-                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
-                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                <select id="langSelect" class="lang-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu">ગુજરાતી (Gujarati)</option>
                 </select>
 
-                <button class="hc-toggle"
-                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
-                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+                <button class="hc-toggle" title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
             </div>
         </div>
     </div>
@@ -143,7 +141,7 @@
             <!-- Quick Stats -->
             <div class="quick-stats" id="dashboardStats">
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--saffron-light);">🌾</div>
+                    <div class="stat-icon-box tone-saffron">🌾</div>
                     <div class="stat-info">
                         <h4>Commodities Tracked</h4>
                         <span class="value" id="statCommodities">—</span>
@@ -151,7 +149,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--green-light);">🏪</div>
+                    <div class="stat-icon-box tone-green">🏪</div>
                     <div class="stat-info">
                         <h4>Active Mandis</h4>
                         <span class="value" id="statMandis">—</span>
@@ -159,7 +157,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--info-bg);">📈</div>
+                    <div class="stat-icon-box tone-info">📈</div>
                     <div class="stat-info">
                         <h4>Today's Avg Change</h4>
                         <span class="value" id="avgChange">+1.2%</span>
@@ -167,7 +165,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--warning-bg);">⏰</div>
+                    <div class="stat-icon-box tone-warning">⏰</div>
                     <div class="stat-info">
                         <h4>Data Freshness</h4>
                         <span class="value" id="statFreshness">Live</span>
@@ -211,8 +209,7 @@
                     data-i18n="dash.search">🔍 Search</button>
                 <button class="btn btn-outline btn-sm" onclick="resetFilters()" data-i18n="dash.reset">↻ Reset</button>
                 <button class="btn btn-outline btn-sm voice-btn" id="voiceSearchBtn"
-                    onclick="KisanI18n.startVoiceSearch()" title="Voice Search"
-                    style="border-radius:50%;width:36px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:var(--white);border-color:var(--border-color);">🎤</button>
+                    onclick="KisanI18n.startVoiceSearch()" title="Voice Search">🎤</button>
             </div>
 
             <!-- Main Content Grid -->
@@ -220,24 +217,23 @@
                 <!-- Left: Price Table & Charts -->
                 <div>
                     <!-- Favorites Section -->
-                    <div class="favorites-section" id="favoritesSection" style="display:none;">
-                        <div class="section-header" style="margin-bottom:16px;">
+                    <div class="favorites-section hidden-panel" id="favoritesSection">
+                        <div class="section-header">
                             <h3 data-i18n="dash.favorites">❤️ My Favorites</h3>
                         </div>
                         <div class="favorites-grid" id="favoritesGrid">
                             <!-- Populated by JS -->
                         </div>
-                        <hr style="margin:24px 0;border:0;border-top:1px solid var(--border-color);">
+                        <hr class="section-divider">
                     </div>
 
                     <!-- Mandi Price Table -->
-                    <div class="card" style="margin-bottom:24px;">
+                    <div class="card stack-gap-24">
                         <div class="card-header">
                             <h3>🏪 Mandi-wise Price Comparison</h3>
-                            <div style="display:flex;align-items:center;gap:8px;">
+                            <div class="section-title-row">
                                 <span class="badge badge-info" id="resultCount">Select commodity to view</span>
-                                <button class="btn btn-outline btn-sm" id="exportCsvBtn" onclick="exportCSV()"
-                                    style="display:none;font-size:0.75rem;">📥 Export CSV</button>
+                                <button class="btn btn-outline btn-sm export-csv-btn" id="exportCsvBtn" onclick="exportCSV()">📥 Export CSV</button>
                             </div>
                         </div>
                         <div class="card-body no-padding">
@@ -255,11 +251,10 @@
                                     </thead>
                                     <tbody id="mandiTableBody">
                                         <tr>
-                                            <td colspan="6"
-                                                style="text-align:center;padding:60px 20px;color:var(--text-muted);">
-                                                <div style="font-size:2.5rem;margin-bottom:12px;">📊</div>
+                                            <td colspan="6" class="empty-table">
+                                                <div class="icon">📊</div>
                                                 <strong>Select a State and Commodity</strong><br>
-                                                <span style="font-size:0.85rem;">Use the filters above to view real-time
+                                                <span class="inline-note">Use the filters above to view real-time
                                                     mandi prices from data.gov.in</span>
                                             </td>
                                         </tr>
@@ -270,35 +265,32 @@
                     </div>
 
                     <!-- Price Comparison Bar Chart -->
-                    <div class="card" style="margin-bottom:24px;">
+                    <div class="card stack-gap-24">
                         <div class="card-header">
                             <h3>📊 Price Comparison Across Mandis</h3>
                             <span class="badge badge-saffron">Modal Price (₹/Quintal)</span>
                         </div>
                         <div class="card-body">
-                            <div id="barChartContainer" class="bar-chart"
-                                style="height:250px;display:flex;align-items:flex-end;gap:6px;padding:20px 10px 30px;">
-                                <p style="text-align:center;width:100%;color:var(--text-muted);align-self:center;">
+                            <div id="barChartContainer" class="bar-chart bar-chart-shell">
+                                <p class="empty-placeholder">
                                     Search for a commodity to view price comparison chart</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Price Trend Chart -->
-                    <div class="card" style="margin-bottom:24px;">
+                    <div class="card stack-gap-24">
                         <div class="card-header">
                             <h3>📈 30-Day Price Trend</h3>
-                            <div style="display:flex;gap:8px;">
+                            <div class="actions-row">
                                 <button class="btn btn-sm btn-outline" onclick="setTrendPeriod(7)">7D</button>
                                 <button class="btn btn-sm btn-primary" onclick="setTrendPeriod(30)">30D</button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="trendChartContainer" style="position:relative;">
-                                <canvas id="trendCanvas" width="800" height="250"
-                                    style="width:100%;height:250px;"></canvas>
-                                <p id="trendPlaceholder"
-                                    style="text-align:center;color:var(--text-muted);padding:40px;">Search for a
+                            <div id="trendChartContainer" class="chart-wrap">
+                                <canvas id="trendCanvas" width="800" height="250" class="trend-canvas"></canvas>
+                                <p id="trendPlaceholder" class="empty-placeholder">Search for a
                                     commodity to view price trend</p>
                             </div>
                         </div>
@@ -311,7 +303,7 @@
                             <span class="badge badge-success">Fair Price Indicator</span>
                         </div>
                         <div class="card-body" id="mspComparisonContainer">
-                            <p style="text-align:center;color:var(--text-muted);padding:20px;">Search for a commodity
+                            <p class="empty-placeholder">Search for a commodity
                                 with MSP to view comparison</p>
                         </div>
                     </div>
@@ -320,21 +312,21 @@
                 <!-- Right Sidebar -->
                 <div>
                     <!-- Weather Widget -->
-                    <div class="weather-widget" id="weatherWidget" style="margin-bottom:24px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <div class="weather-widget stack-gap-24" id="weatherWidget">
+                        <div class="weather-header">
                             <div>
-                                <h3 style="font-size:1rem;font-weight:700;" data-i18n="dash.weather">🌤️ Weather Today
+                                <h3 class="weather-title" data-i18n="dash.weather">🌤️ Weather Today
                                 </h3>
-                                <span style="font-size:0.75rem;opacity:0.7;" id="weatherLocation">Select a
+                                <span class="weather-sub" id="weatherLocation">Select a
                                     district</span>
                             </div>
-                            <span style="font-size:0.7rem;opacity:0.5;" id="weatherDate"></span>
+                            <span class="weather-date" id="weatherDate"></span>
                         </div>
                         <div class="weather-current">
                             <span class="weather-icon" id="weatherIcon">🌤️</span>
                             <div>
                                 <div class="temp" id="weatherTemp">--<sup>°C</sup></div>
-                                <span style="font-size:0.8rem;opacity:0.8;" id="weatherCondition">--</span>
+                                <span class="weather-condition" id="weatherCondition">--</span>
                             </div>
                         </div>
                         <div class="weather-details">
@@ -357,7 +349,7 @@
                     </div>
 
                     <!-- Crop Advisory -->
-                    <div class="card" style="margin-bottom:24px;">
+                    <div class="card stack-gap-24">
                         <div class="card-header">
                             <h3 data-i18n="dash.advisory">🌾 Crop Advisory</h3>
                         </div>
@@ -372,7 +364,7 @@
                     </div>
 
                     <!-- Top Gainers -->
-                    <div class="card" style="margin-bottom:24px;">
+                    <div class="card stack-gap-24">
                         <div class="card-header">
                             <h3>📈 Highest MSP Crops</h3>
                         </div>
@@ -382,7 +374,7 @@
                     </div>
 
                     <!-- MSP Quick Reference -->
-                    <div class="card" style="margin-bottom:24px;">
+                    <div class="card stack-gap-24">
                         <div class="card-header">
                             <h3>💰 MSP Quick Reference</h3>
                             <span class="badge badge-saffron">2024-25</span>
@@ -404,12 +396,11 @@
                     </div>
 
                     <!-- Helpline -->
-                    <div
-                        style="background:linear-gradient(135deg, var(--green) 0%, #22c55e 100%);border-radius:var(--border-radius-lg);padding:20px;color:var(--white);text-align:center;">
-                        <div style="font-size:2rem;margin-bottom:8px;">📞</div>
-                        <h4 style="font-weight:700;margin-bottom:4px;">Kisan Helpline</h4>
-                        <p style="font-size:0.8rem;opacity:0.9;margin-bottom:10px;">24/7 toll-free number</p>
-                        <div style="font-size:1.5rem;font-weight:800;">1800-180-1551</div>
+                    <div class="helpline-card">
+                        <div class="icon">📞</div>
+                        <h4>Kisan Helpline</h4>
+                        <p>24/7 toll-free number</p>
+                        <div class="number">1800-180-1551</div>
                     </div>
                 </div>
             </div>
@@ -419,26 +410,25 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="tricolor-divider"></div>
-        <div class="container" style="padding-top: 40px;">
+        <div class="container footer-pad-top">
             <div class="footer-grid">
                 <div>
-                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-                        <div
-                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                    <div class="footer-brand">
+                        <div class="footer-brand-logo">
                             🌾</div>
                         <div>
-                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                            <h3 class="footer-brand-title">
                                 KisanMitra</h3>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                            <span class="footer-brand-sub">किसानमित्र</span>
                         </div>
                     </div>
                     <p>KisanMitra is an open-source multilingual PWA for Indian farmers with live mandi prices, MSP
                         intelligence, weather advisories, government schemes, and direct market access.</p>
-                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                    <p class="footer-note">An initiative under the Digital Agriculture Mission,
                         Ministry of Agriculture & Farmers Welfare, Government of India.</p>
-                    <p style="margin-top:12px;font-size:0.8rem;">
+                    <p class="footer-links-row">
                         <a href="https://tekigowtham2204.github.io/KisanMitra/" target="_blank" rel="noopener noreferrer">Live URL</a>
-                        <span style="opacity:0.6;"> | </span>
+                        <span class="sep"> | </span>
                         <a href="https://github.com/tekigowtham2204/KisanMitra/" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
                     </p>
                 </div>

@@ -25,6 +25,7 @@
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/redesign.css">
 </head>
 
 <body>
@@ -33,21 +34,18 @@
         <div class="container">
             <span>🇮🇳 भारत सरकार | Government of India — Ministry of Agriculture & Farmers Welfare</span>
             <div>
-                <select id="langSelect" class="lang-select"
-                    style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:white;padding:5px 10px;border-radius:20px;font-size:0.9rem;cursor:pointer;outline:none;">
-                    <option value="en" style="color:#0f1729;">English</option>
-                    <option value="hi" style="color:#0f1729;">हिन्दी (Hindi)</option>
-                    <option value="te" style="color:#0f1729;">తెలుగు (Telugu)</option>
-                    <option value="ta" style="color:#0f1729;">தமிழ் (Tamil)</option>
-                    <option value="mr" style="color:#0f1729;">मराठी (Marathi)</option>
-                    <option value="bn" style="color:#0f1729;">বাংলা (Bengali)</option>
-                    <option value="kn" style="color:#0f1729;">ಕನ್ನಡ (Kannada)</option>
-                    <option value="gu" style="color:#0f1729;">ગુજરાતી (Gujarati)</option>
+                <select id="langSelect" class="lang-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    <option value="gu">ગુજરાતી (Gujarati)</option>
                 </select>
 
-                <button class="hc-toggle"
-                    style="margin-left:6px;background:#000;color:#fff;border:1px solid #fff;padding:4px 8px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.75rem;"
-                    title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
+                <button class="hc-toggle" title="High Contrast Mode" aria-label="Toggle High Contrast Mode">👁️‍🗨️</button>
             </div>
         </div>
     </div>
@@ -96,9 +94,9 @@
     <section class="dashboard">
         <div class="container">
             <!-- Stats -->
-            <div class="quick-stats" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="quick-stats layout-4">
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--saffron-light);">🏛️</div>
+                    <div class="stat-icon-box tone-saffron">🏛️</div>
                     <div class="stat-info">
                         <h4>Active Schemes</h4>
                         <span class="value">50+</span>
@@ -106,7 +104,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--green-light);">👨‍🌾</div>
+                    <div class="stat-icon-box tone-green">👨‍🌾</div>
                     <div class="stat-info">
                         <h4>Total Beneficiaries</h4>
                         <span class="value">11.8 Cr</span>
@@ -114,7 +112,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--info-bg);">💰</div>
+                    <div class="stat-icon-box tone-info">💰</div>
                     <div class="stat-info">
                         <h4>PM-KISAN Released</h4>
                         <span class="value">₹3.04L Cr</span>
@@ -122,7 +120,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon-box" style="background:var(--warning-bg);">🛡️</div>
+                    <div class="stat-icon-box tone-warning">🛡️</div>
                     <div class="stat-info">
                         <h4>Crop Insurance Claims</h4>
                         <span class="value">₹1.5L Cr</span>
@@ -156,38 +154,35 @@
             </div>
 
             <!-- Eligibility Checker -->
-            <div class="card" style="margin-top: 40px;">
+            <div class="card mt-40">
                 <div class="card-header">
                     <h3 data-i18n="schemes.eligibility">✅ Quick Eligibility Checker</h3>
                     <span class="badge badge-success">Find Schemes for You</span>
                 </div>
                 <div class="card-body">
-                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+                    <div class="form-grid-3">
                         <div>
-                            <label
-                                style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Land
+                            <label class="form-label">Land
                                 Holding</label>
-                            <select class="form-control" id="eligLand" style="width:100%;">
+                            <select class="form-control w-full" id="eligLand">
                                 <option value="small">Small (< 2 hectares)</option>
                                 <option value="medium">Medium (2-10 hectares)</option>
                                 <option value="large">Large (> 10 hectares)</option>
                             </select>
                         </div>
                         <div>
-                            <label
-                                style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Farmer
+                            <label class="form-label">Farmer
                                 Type</label>
-                            <select class="form-control" id="eligType" style="width:100%;">
+                            <select class="form-control w-full" id="eligType">
                                 <option value="owner">Owner Cultivator</option>
                                 <option value="tenant">Tenant Farmer</option>
                                 <option value="sharecropper">Sharecropper</option>
                             </select>
                         </div>
                         <div>
-                            <label
-                                style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Age
+                            <label class="form-label">Age
                                 Group</label>
-                            <select class="form-control" id="eligAge" style="width:100%;">
+                            <select class="form-control w-full" id="eligAge">
                                 <option value="young">18-40 years</option>
                                 <option value="middle">40-60 years</option>
                                 <option value="senior">60+ years</option>
@@ -195,18 +190,17 @@
                         </div>
                     </div>
                     <button class="btn btn-primary" onclick="checkEligibility()">Check Eligible Schemes →</button>
-                    <div id="eligibilityResult" style="margin-top:20px;"></div>
+                    <div id="eligibilityResult" class="mt-20"></div>
                 </div>
             </div>
 
             <!-- Important Links -->
-            <div class="helpline-banner" style="margin-top:30px;">
+            <div class="helpline-banner mt-30">
                 <div>
                     <h3>📋 Apply for Schemes Online</h3>
                     <p>Visit the official scheme portals to check your status, apply, or raise grievances</p>
                 </div>
-                <a href="https://pmkisan.gov.in" target="_blank" class="btn btn-secondary btn-lg"
-                    style="background:rgba(255,255,255,0.2);">
+                <a href="https://pmkisan.gov.in" target="_blank" class="btn btn-secondary btn-lg cta-muted">
                     Visit PM-KISAN Portal →
                 </a>
             </div>
@@ -216,26 +210,25 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="tricolor-divider"></div>
-        <div class="container" style="padding-top: 40px;">
+        <div class="container footer-pad-top">
             <div class="footer-grid">
                 <div>
-                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-                        <div
-                            style="width:42px;height:42px;background:linear-gradient(135deg,var(--saffron),#FFB74D);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">
+                    <div class="footer-brand">
+                        <div class="footer-brand-logo">
                             🌾</div>
                         <div>
-                            <h3 style="font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:1px;">
+                            <h3 class="footer-brand-title">
                                 KisanMitra</h3>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);">किसानमित्र</span>
+                            <span class="footer-brand-sub">किसानमित्र</span>
                         </div>
                     </div>
                     <p>KisanMitra is an open-source multilingual PWA for Indian farmers with live mandi prices, MSP
                         intelligence, weather advisories, government schemes, and direct market access.</p>
-                    <p style="margin-top:12px;font-size:0.75rem;">An initiative under the Digital Agriculture Mission,
+                    <p class="footer-note">An initiative under the Digital Agriculture Mission,
                         Ministry of Agriculture & Farmers Welfare, Government of India.</p>
-                    <p style="margin-top:12px;font-size:0.8rem;">
+                    <p class="footer-links-row">
                         <a href="https://tekigowtham2204.github.io/KisanMitra/" target="_blank" rel="noopener noreferrer">Live URL</a>
-                        <span style="opacity:0.6;"> | </span>
+                        <span class="sep"> | </span>
                         <a href="https://github.com/tekigowtham2204/KisanMitra/" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
                     </p>
                 </div>

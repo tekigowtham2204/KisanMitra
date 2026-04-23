@@ -16,10 +16,11 @@
     <meta property="og:url" content="https://kisanmitra.in" />
 
     <!-- Favicon -->
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23FF9933'/><text x='96' y='120' font-size='100' text-anchor='middle' fill='white'>🌾</text></svg>"
-        type="image/svg+xml">
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -27,9 +28,11 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f1729 0%, #1a2332 100%);
-            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans', 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at 14% 8%, rgba(255, 175, 102, 0.24), transparent 28%),
+                radial-gradient(circle at 86% 18%, rgba(50, 180, 95, 0.25), transparent 30%),
+                linear-gradient(170deg, #101f18 0%, #132821 42%, #163128 100%);
+            color: #dcefe0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -38,12 +41,29 @@
             padding: 20px;
         }
 
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+            mask-image: radial-gradient(circle at center, black 26%, transparent 84%);
+        }
+
         .offline-container {
-            max-width: 500px;
+            max-width: 580px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 24px;
+            box-shadow: 0 20px 56px rgba(5, 17, 12, 0.45);
+            padding: 32px 24px;
+            backdrop-filter: blur(14px);
         }
 
         .offline-icon {
-            font-size: 5rem;
+            font-size: 4.8rem;
             margin-bottom: 20px;
             animation: pulse 2s ease-in-out infinite;
         }
@@ -63,80 +83,83 @@
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
-            color: #FF9933;
+            color: #ffd5a6;
             margin-bottom: 10px;
+            letter-spacing: -0.01em;
         }
 
         h2 {
-            font-size: 1.1rem;
+            font-size: 1.04rem;
             font-weight: 600;
             margin-bottom: 20px;
-            color: #94a3b8;
+            color: #b5cfc0;
         }
 
         p {
             font-size: 0.95rem;
-            color: #64748b;
+            color: #cadecf;
             line-height: 1.6;
             margin-bottom: 30px;
         }
 
         .helpline {
-            background: rgba(255, 153, 51, 0.1);
-            border: 1px solid rgba(255, 153, 51, 0.3);
-            border-radius: 16px;
+            background: linear-gradient(145deg, rgba(39, 149, 82, 0.82), rgba(24, 109, 58, 0.82));
+            border: 1px solid rgba(235, 255, 237, 0.23);
+            border-radius: 18px;
             padding: 24px;
             margin-bottom: 20px;
         }
 
         .helpline h3 {
-            font-size: 0.9rem;
-            color: #FF9933;
+            font-size: 0.92rem;
+            color: #e4ffe6;
             margin-bottom: 8px;
         }
 
         .helpline .number {
             font-size: 1.8rem;
             font-weight: 800;
-            color: #22c55e;
+            color: #fff;
         }
 
         .helpline .desc {
             font-size: 0.8rem;
-            color: #94a3b8;
+            color: rgba(237, 255, 238, 0.9);
             margin-top: 4px;
         }
 
         .retry-btn {
-            background: #FF9933;
-            color: white;
+            background: linear-gradient(135deg, #ff9933, #f0a95f);
+            color: #19231b;
             border: none;
-            padding: 14px 32px;
+            padding: 14px 34px;
             border-radius: 12px;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 0 10px 24px rgba(252, 164, 77, 0.35);
         }
 
         .retry-btn:hover {
-            background: #e68a00;
+            filter: brightness(1.03);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 153, 51, 0.3);
+            box-shadow: 0 12px 28px rgba(255, 153, 51, 0.45);
         }
 
         .msp-info {
             margin-top: 30px;
             text-align: left;
-            background: rgba(19, 136, 8, 0.1);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 14px;
             padding: 20px;
         }
 
         .msp-info h4 {
-            color: #22c55e;
+            color: #d9ffdd;
             margin-bottom: 10px;
             font-size: 0.85rem;
         }
@@ -145,7 +168,7 @@
             display: flex;
             justify-content: space-between;
             padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
             font-size: 0.8rem;
         }
 
@@ -154,12 +177,27 @@
         }
 
         .msp-row .crop {
-            color: #94a3b8;
+            color: #d4ebde;
         }
 
         .msp-row .price {
-            color: #22c55e;
+            color: #d2ffd2;
             font-weight: 600;
+        }
+
+        @media (max-width: 640px) {
+            .offline-container {
+                padding: 24px 16px;
+                border-radius: 16px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .helpline .number {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
