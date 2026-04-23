@@ -27,6 +27,13 @@ body {
         radial-gradient(circle at 88% 13%, rgba(38, 157, 78, 0.16), transparent 30%),
         linear-gradient(180deg, var(--rd-bg-0) 0%, var(--rd-bg-1) 100%);
     color: var(--rd-ink-0);
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
 }
 
 h1,
@@ -1206,8 +1213,14 @@ body::before {
 @media (max-width: 768px) {
     .gov-strip .container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
         gap: 8px;
+    }
+    
+    .gov-strip span {
+        font-size: 0.75rem;
+        line-height: 1.4;
     }
 
     .navbar .container {
@@ -1215,11 +1228,32 @@ body::before {
     }
 
     .nav-links {
+        position: absolute;
         top: 74px;
-        margin: 0 10px;
+        left: 0;
+        right: 0;
+        margin: 0 16px;
+        padding: 20px 0;
+        flex-direction: column;
         border-radius: 12px;
-        background: rgba(15, 36, 27, 0.96);
+        background: rgba(15, 36, 27, 0.98);
         border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-toggle {
+        display: block !important;
     }
 
     .hero {
