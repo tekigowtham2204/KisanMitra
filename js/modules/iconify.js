@@ -6,7 +6,7 @@
 // "file.svg#id"> does NOT load in Safari).
 // ============================================================
 
-const ICON_SPRITE_PATH = 'assets/icons/sprite.svg?v=9';
+const ICON_SPRITE_PATH = 'assets/icons/sprite.svg?v=10';
 
 // Map of emoji (and a few text glyphs) → sprite symbol id.
 // Multi-codepoint sequences (ZWJ) are matched first via length sort.
