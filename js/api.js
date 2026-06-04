@@ -205,11 +205,11 @@
                 modalPrice: parseFloat(r.modal_price) || 0,
             }));
 
-            // CRITICAL FOR DEMO: If API returns 0 records (common for specific filters),
-            // fallback to mock data so the user ALWAYS sees something.
+            // API reachable but no records for this filter today — be honest and
+            // return an empty result (the UI shows a "no data" state) instead of
+            // fabricating prices. Mock data is only used when the network fails.
             if (records.length === 0) {
-                console.log('API returned 0 records, switching to simulation for demo.');
-                return generateMockPrices({ state, commodity, district, market });
+                return { total: 0, count: 0, records: [], updated: json.updated_date || new Date().toISOString(), isMock: false };
             }
 
             const result = {

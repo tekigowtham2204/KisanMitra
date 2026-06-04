@@ -2,8 +2,8 @@
 // KisanMitra — Service Worker (Offline Support + Caching)
 // ============================================================
 // Storage
-const CACHE_NAME = 'kisanmitra-v12';
-const DATA_CACHE = 'kisanmitra-data-v12';
+const CACHE_NAME = 'kisanmitra-v13';
+const DATA_CACHE = 'kisanmitra-data-v13';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install
@@ -104,21 +104,19 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // For CSS/JS/images — cache first, network fallback.
-    // ignoreSearch so versioned URLs (e.g. style.css?v=9) still match the
-    // un-versioned precache entries, keeping offline mode working.
+    // For CSS/JS/images — NETWORK FIRST so users always get the latest when
+    // online (fixes stale assets sticking around); fall back to cache offline.
+    // ignoreSearch lets versioned URLs (?v=) match the un-versioned precache.
     event.respondWith(
-        caches.match(request, { ignoreSearch: true }).then(cached => {
-            if (cached) return cached;
-            return fetch(request).then(response => {
-                const clone = response.clone();
-                caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-                return response;
-            });
-        }).catch(() => {
-            // Return empty response for non-critical resources
-            return new Response('', { status: 408, statusText: 'Offline' });
-        })
+        fetch(request).then(response => {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+            return response;
+        }).catch(() =>
+            caches.match(request, { ignoreSearch: true }).then(cached =>
+                cached || new Response('', { status: 408, statusText: 'Offline' })
+            )
+        )
     );
 });
 
