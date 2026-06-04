@@ -501,9 +501,9 @@ function updateMandiTable(records) {
                     title="${isHindi ? 'पसंदीदा में जोड़ें' : 'Add to Favorites'}">
                     ❤
                 </button>
-                <button class="btn btn-outline btn-sm" style="padding:2px 6px;font-size:0.7rem;margin-left:4px;"
+                <button class="btn btn-outline btn-sm"
                     onclick="sharePrice('${r.commodity}', '${r.market}', '${r.state}', ${r.modalPrice})"
-                    title="Share via WhatsApp">📤</button>
+                    title="Share via WhatsApp">📤 ${isHindi ? 'शेयर' : 'Share'}</button>
             </td>
         </tr>`;
     }).join('');

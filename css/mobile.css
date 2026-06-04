@@ -243,12 +243,18 @@
     /* Action cell spans full width */
     .data-table tbody td.td-actions {
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
+        align-items: center;
         gap: 8px;
         padding-top: 12px;
     }
     .data-table tbody td.td-actions::before { display: none; }
-    .data-table tbody td.td-actions .btn { flex: 1; }
+    .data-table tbody td.td-actions .btn { flex: 0 0 auto; }
+    .data-table tbody td.td-actions .btn-favorite {
+        width: 40px; height: 38px;
+        display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid var(--border); border-radius: var(--r-sm);
+    }
 
     /* Empty / colspan rows shouldn't look like data cards */
     .data-table tbody td.empty-table,
