@@ -2,8 +2,8 @@
 // KisanMitra — Service Worker (Offline Support + Caching)
 // ============================================================
 // Storage
-const CACHE_NAME = 'kisanmitra-v9';
-const DATA_CACHE = 'kisanmitra-data-v9';
+const CACHE_NAME = 'kisanmitra-v10';
+const DATA_CACHE = 'kisanmitra-data-v10';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install
@@ -104,9 +104,11 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // For CSS/JS/images — cache first, network fallback
+    // For CSS/JS/images — cache first, network fallback.
+    // ignoreSearch so versioned URLs (e.g. style.css?v=9) still match the
+    // un-versioned precache entries, keeping offline mode working.
     event.respondWith(
-        caches.match(request).then(cached => {
+        caches.match(request, { ignoreSearch: true }).then(cached => {
             if (cached) return cached;
             return fetch(request).then(response => {
                 const clone = response.clone();

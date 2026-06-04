@@ -6,7 +6,7 @@
 import { Utils } from './modules/utils.js';
 import { AppState } from './modules/state.js';
 import { UI } from './modules/ui.js';
-import { initEmojiToSvgIcons } from './modules/iconify.js';
+import { initEmojiToSvgIcons } from './modules/iconify.js?v=9';
 
 // ── Initialize on DOM ready ──
 document.addEventListener('DOMContentLoaded', () => {
