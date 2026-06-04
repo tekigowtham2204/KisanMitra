@@ -2,8 +2,8 @@
 // KisanMitra — Service Worker (Offline Support + Caching)
 // ============================================================
 // Storage
-const CACHE_NAME = 'kisanmitra-v8';
-const DATA_CACHE = 'kisanmitra-data-v8';
+const CACHE_NAME = 'kisanmitra-v9';
+const DATA_CACHE = 'kisanmitra-data-v9';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install
@@ -15,6 +15,8 @@ const PRECACHE_URLS = [
     'market.html',
     'offline.html',
     'css/style.css',
+    'css/redesign.css',
+    'css/mobile.css',
     'js/api.js',
     'js/data.js',
     'js/app.js',

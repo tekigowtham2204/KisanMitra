@@ -10,6 +10,7 @@ import { initEmojiToSvgIcons } from './modules/iconify.js';
 
 // ── Initialize on DOM ready ──
 document.addEventListener('DOMContentLoaded', () => {
+    initMobileHeader();
     initNavToggle();
     initScrollToTop();
     initScrollReveal();
@@ -35,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Replace emoji glyphs with themed SVG icons in both static and dynamic UI.
     initEmojiToSvgIcons();
+
+    // Mobile: collapsible dashboard cards (app-like)
+    initMobileCollapsibles();
 });
 
 function detectPage() {
@@ -49,12 +53,64 @@ function detectPage() {
 function initNavToggle() {
     const toggle = document.getElementById('navToggle');
     const links = document.getElementById('navLinks');
-    if (toggle && links) {
-        toggle.addEventListener('click', () => {
-            links.classList.toggle('active');
-            toggle.textContent = links.classList.contains('active') ? '✕' : '☰';
-        });
+    if (!toggle || !links) return;
+
+    const setOpen = (open) => {
+        links.classList.toggle('active', open);
+        document.body.classList.toggle('nav-open', open);
+        toggle.textContent = open ? '✕' : '☰';
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setOpen(!links.classList.contains('active'));
+    });
+    // Close when a destination link is tapped
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    // Close when tapping outside the drawer (backdrop)
+    document.addEventListener('click', (e) => {
+        if (!document.body.classList.contains('nav-open')) return;
+        if (!links.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+}
+
+// ── Mobile: fold the language/contrast controls into the nav drawer ──
+function initMobileHeader() {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+    const controls = document.querySelector('.gov-strip .container > div');
+    const links = document.getElementById('navLinks');
+    if (controls && links && !controls.dataset.moved) {
+        controls.dataset.moved = '1';
+        const li = document.createElement('li');
+        li.className = 'nav-drawer-controls';
+        li.appendChild(controls);
+        links.appendChild(li);
     }
+}
+
+// ── Mobile: make dashboard cards collapsible (app-like) ──
+function initMobileCollapsibles() {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+    document.querySelectorAll('.dashboard .card > .card-header').forEach(header => {
+        const card = header.parentElement;
+        if (card.dataset.collapsibleReady) return;
+        card.dataset.collapsibleReady = '1';
+        card.classList.add('is-collapsible');
+        header.setAttribute('role', 'button');
+        header.setAttribute('tabindex', '0');
+        const toggle = () => card.classList.toggle('collapsed');
+        header.addEventListener('click', (e) => {
+            // Don't collapse when interacting with a control inside the header
+            if (e.target.closest('button, a, select, input')) return;
+            toggle();
+        });
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+    });
 }
 
 // ── Helper: Show API key warning (Wrapped for specific usage) ──
@@ -100,12 +156,12 @@ function populateQuickPriceTable() {
             const viewText = lang === 'hi' ? 'भाव देखें →' : 'View Prices →';
 
             return `<tr>
-            <td><strong>${c.icon} ${displayName}</strong></td>
-            <td><span class="badge ${season === 'Rabi' ? 'badge-info' : 'badge-saffron'}">${season} ${mspInfo.year || ''}</span></td>
-            <td class="price modal-price">${Utils.formatCurrency(msp)}</td>
-            <td>${costA2FL ? Utils.formatCurrency(costA2FL) : '<span style="color:var(--text-muted)">—</span>'}</td>
-            <td>${marginOverCost ? `<span class="badge badge-success">${marginOverCost}</span>` : '—'}</td>
-            <td><a href="dashboard.html?commodity=${encodeURIComponent(c.name)}" class="btn btn-sm btn-outline" style="font-size:0.75rem;">${viewText}</a></td>
+            <td data-label="Commodity"><strong>${c.icon} ${displayName}</strong></td>
+            <td data-label="Season / Year"><span class="badge ${season === 'Rabi' ? 'badge-info' : 'badge-saffron'}">${season} ${mspInfo.year || ''}</span></td>
+            <td data-label="MSP (₹/Qt)" class="price modal-price">${Utils.formatCurrency(msp)}</td>
+            <td data-label="Cost A2+FL">${costA2FL ? Utils.formatCurrency(costA2FL) : '<span style="color:var(--text-muted)">—</span>'}</td>
+            <td data-label="MSP over Cost">${marginOverCost ? `<span class="badge badge-success">${marginOverCost}</span>` : '—'}</td>
+            <td data-label="Action" class="td-actions"><a href="dashboard.html?commodity=${encodeURIComponent(c.name)}" class="btn btn-sm btn-outline" style="font-size:0.75rem;">${viewText}</a></td>
         </tr>`;
         }).join('');
 
@@ -421,16 +477,16 @@ function updateMandiTable(records) {
         let badgeHtml = isBest ? ` <span class="badge badge-success" style="margin-left:6px;">${isHindi ? 'सर्वोत्तम मूल्य' : 'Best Price'}</span>` : '';
 
         return `<tr style="${rowStyle}">
-            <td>
+            <td data-label="Mandi / Market">
                 <div class="mandi-name">${r.market}${badgeHtml}</div>
                 <div class="mandi-district">${r.district}, ${r.state}</div>
             </td>
-            <td class="price">${Utils.formatCurrency(r.minPrice)}</td>
-            <td class="price">${Utils.formatCurrency(r.maxPrice)}</td>
-            <td class="price modal-price">${Utils.formatCurrency(r.modalPrice)}</td>
-            <td><span class="badge badge-saffron">${r.variety || (isHindi ? 'सामान्य' : 'General')}</span></td>
-            <td>${r.arrivalDate}</td>
-            <td style="white-space:nowrap;">
+            <td data-label="Min Price" class="price">${Utils.formatCurrency(r.minPrice)}</td>
+            <td data-label="Max Price" class="price">${Utils.formatCurrency(r.maxPrice)}</td>
+            <td data-label="Modal Price" class="price modal-price">${Utils.formatCurrency(r.modalPrice)}</td>
+            <td data-label="Variety"><span class="badge badge-saffron">${r.variety || (isHindi ? 'सामान्य' : 'General')}</span></td>
+            <td data-label="Date">${r.arrivalDate}</td>
+            <td class="td-actions" style="white-space:nowrap;">
                 <button class="btn-favorite ${AppState.isFavorite(r.market, r.commodity) ? 'active' : ''}" 
                     onclick="toggleFavorite('${r.market}', '${r.commodity}', '${r.state}', ${r.modalPrice}, '${r.district}')"
                     title="${isHindi ? 'पसंदीदा में जोड़ें' : 'Add to Favorites'}">
@@ -664,9 +720,9 @@ function populateMSPQuickTable() {
         .filter(([_, v]) => v.msp)
         .map(([name, info]) => `
             <tr>
-                <td style="font-size:0.8rem;font-weight:600;">${name}</td>
-                <td class="price" style="font-size:0.85rem;">${Utils.formatCurrency(info.msp)}</td>
-                <td><span class="badge ${info.season === 'Rabi' ? 'badge-info' : 'badge-saffron'}">${info.season}</span></td>
+                <td data-label="Crop" style="font-size:0.8rem;font-weight:600;">${name}</td>
+                <td data-label="MSP (₹/Qt)" class="price" style="font-size:0.85rem;">${Utils.formatCurrency(info.msp)}</td>
+                <td data-label="Season"><span class="badge ${info.season === 'Rabi' ? 'badge-info' : 'badge-saffron'}">${info.season}</span></td>
             </tr>`).join('');
     tbody.innerHTML = rows;
 }
