@@ -2,8 +2,8 @@
 // KisanMitra — Service Worker (Offline Support + Caching)
 // ============================================================
 // Storage
-const CACHE_NAME = 'kisanmitra-v6';
-const DATA_CACHE = 'kisanmitra-data-v6';
+const CACHE_NAME = 'kisanmitra-v7';
+const DATA_CACHE = 'kisanmitra-data-v7';
 const OFFLINE_URL = '/offline.html';
 
 // Files to cache immediately on install

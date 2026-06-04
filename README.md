@@ -33,4 +33,4 @@ Deployed via GitHub Pages.
 - After setup, the website remains online 24/7 on GitHub infrastructure.
 
 ---
-*An initiative under the Digital Agriculture Mission, Ministry of Agriculture & Farmers Welfare, Government of India.*
+*An independent, open-source project built for Indian farmers. Not affiliated with or endorsed by any government body. Market and scheme data is aggregated from public open-data APIs (eNAM, Agmarknet & data.gov.in) for informational purposes.*
