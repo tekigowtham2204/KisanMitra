@@ -745,7 +745,7 @@ function updateTrendChart(records, commodityName, days = 30) {
 
     // Line path
     ctx.beginPath();
-    ctx.strokeStyle = '#FF9933';
+    ctx.strokeStyle = '#1f7a47';
     ctx.lineWidth = 2;
     ctx.lineJoin = 'round';
 
@@ -830,8 +830,8 @@ window.filterMandiTable = function () {
 window.sharePrice = function (commodity, market, state, price) {
     const isHindi = AppState.getLanguage() === 'hi';
     const text = isHindi
-        ? `🌾 *KisanMitra भाव अलर्ट*\n\n📊 ${commodity}\n🏪 ${market}, ${state}\n💰 मोडल मूल्य: ₹${Number(price).toLocaleString('en-IN')}/क्विंटल\n\n🔗 kisanmitra.gov.in पर और देखें`
-        : `🌾 *KisanMitra Price Alert*\n\n📊 ${commodity}\n🏪 ${market}, ${state}\n💰 Modal Price: ₹${Number(price).toLocaleString('en-IN')}/Qt\n\n🔗 Check more at kisanmitra.gov.in`;
+        ? `🌾 *KisanMitra भाव अलर्ट*\n\n📊 ${commodity}\n🏪 ${market}, ${state}\n💰 मोडल मूल्य: ₹${Number(price).toLocaleString('en-IN')}/क्विंटल\n\n🔗 tekigowtham2204.github.io/KisanMitra पर और देखें`
+        : `🌾 *KisanMitra Price Alert*\n\n📊 ${commodity}\n🏪 ${market}, ${state}\n💰 Modal Price: ₹${Number(price).toLocaleString('en-IN')}/Qt\n\n🔗 More at tekigowtham2204.github.io/KisanMitra`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
 };

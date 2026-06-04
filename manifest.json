@@ -4,14 +4,14 @@
     "description": "KisanMitra is an open-source multilingual PWA for Indian farmers with live mandi prices, MSP intelligence, weather advisories, schemes, and direct market access.",
     "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#0f1729",
-    "theme_color": "#FF9933",
+    "background_color": "#f6f9f3",
+    "theme_color": "#1f7a47",
     "orientation": "portrait-primary",
     "lang": "en-IN",
     "dir": "ltr",
     "categories": [
         "agriculture",
-        "government",
+        "business",
         "utilities"
     ],
     "scope": "./",
