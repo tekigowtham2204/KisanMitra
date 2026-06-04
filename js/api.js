@@ -128,11 +128,13 @@
      * @param {Object} filters - { state, commodity, district, market }
      * @returns {Promise<{total, count, records[], updated}>}
      */
-    async function fetchMandiPrices(filters = {}) {
+    async function fetchMandiPrices(filters = {}, { forceRefresh = false } = {}) {
         const { state, commodity, district, market } = filters;
         const cacheKey = `mandi_${state || ''}_${commodity || ''}_${district || ''}`;
-        const cached = Cache.get(cacheKey);
-        if (cached) return cached;
+        if (!forceRefresh) {
+            const cached = Cache.get(cacheKey);
+            if (cached) return cached;
+        }
 
         const params = new URLSearchParams({
             'api-key': CONFIG.DATA_GOV_API_KEY,
@@ -148,8 +150,9 @@
 
         const url = `${CONFIG.DATA_GOV_BASE}/${CONFIG.MANDI_PRICE_RESOURCE}?${params}`;
 
-        // Stale-while-revalidate: show old data instantly while refreshing
-        const stale = Cache.getStale(cacheKey);
+        // Stale-while-revalidate: show old data instantly while refreshing.
+        // Skipped on forceRefresh so an explicit search always fetches live.
+        const stale = forceRefresh ? null : Cache.getStale(cacheKey);
         if (stale) {
             // Fire background refresh, but return stale data now
             fetchWithTimeout(url, CONFIG.MANDI_TIMEOUT_MS)
@@ -221,8 +224,10 @@
             return result;
 
         } catch (err) {
-            console.warn('API Request Failed/Timed Out, falling back to simulation:', err);
-            // Fallback: Generate realistic mock data
+            console.warn('API Request Failed/Timed Out:', err);
+            // Prefer the last real (stale) data over simulated data if we have it.
+            const staleFallback = Cache.getStale(cacheKey);
+            if (staleFallback) return staleFallback;
             return generateMockPrices({ state, commodity, district, market });
         }
     }

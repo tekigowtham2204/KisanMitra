@@ -351,11 +351,13 @@ window.searchPrices = Utils.debounce(async function () {
     try {
         const district = document.getElementById('districtSelect')?.value || '';
 
+        // forceRefresh: an explicit search always fetches live data, bypassing
+        // the cache (falls back to last data / simulation only on failure).
         const result = await api.fetchMandiPrices({
             state,
             commodity: apiCommodityName,
             district,
-        });
+        }, { forceRefresh: true });
 
         if (result.records.length === 0) {
             if (tbody) {
@@ -413,6 +415,13 @@ window.searchPrices = Utils.debounce(async function () {
             resultCount.textContent = `${result.records.length} records from ${result.total} total`;
             resultCount.className = 'badge badge-success';
         }
+
+        // Reflect the live fetch in the "Data Freshness" stat for transparency
+        const freshEl = document.getElementById('statFreshness');
+        const freshLbl = document.getElementById('statFreshnessLabel');
+        const nowStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        if (freshEl) freshEl.textContent = result.isMock ? 'Simulated' : 'Live';
+        if (freshLbl) freshLbl.textContent = result.isMock ? 'API unavailable — showing sample' : `Updated ${nowStr}`;
 
         UI.showToast(`✅ Loaded ${result.records.length} prices`, 'success');
 

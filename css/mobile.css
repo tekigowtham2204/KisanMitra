@@ -11,6 +11,13 @@
     /* Clip the off-canvas drawer so it can't create horizontal scroll.
        overflow-x: clip (not hidden) keeps the sticky navbar working. */
     html { overflow-x: clip; }
+    /* Fallback for older iOS Safari (<16) that lacks overflow: clip */
+    @supports not (overflow: clip) {
+        body { overflow-x: hidden; }
+    }
+
+    /* iOS safe areas (notch / home indicator) */
+    body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
 
     /* ── One app header: drop the utility strip (its controls move into
           the drawer via JS), keep a single slim sticky navbar + a thin
@@ -260,7 +267,16 @@
     .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
 
     /* ── Scroll-to-top sits above content, clear of the drawer ── */
-    .scroll-top { bottom: 18px; right: 16px; width: 44px; height: 44px; }
+    .scroll-top { bottom: max(18px, env(safe-area-inset-bottom)); right: 16px; width: 44px; height: 44px; }
+    .nav-links { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+    .install-banner { padding-bottom: max(14px, env(safe-area-inset-bottom)); }
+
+    /* ── Charts fit the card width (no overflow, clean alignment) ── */
+    .chart-wrap, .chart-container { width: 100%; overflow-x: hidden; }
+    .trend-canvas, .chart-canvas { width: 100% !important; height: auto !important; max-width: 100%; display: block; }
+    .bar-chart, .bar-chart-shell { overflow-x: auto; padding-left: 4px; padding-right: 4px; }
+    .price-trend-chart { margin: 16px 8px 32px 36px; }
+    .msp-comparison { gap: 12px; flex-wrap: wrap; }
 
     /* Toast spans nicely on small screens */
     .toast-notification { left: 16px; right: 16px; max-width: none; top: 76px; }
