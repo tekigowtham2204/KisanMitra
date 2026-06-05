@@ -31,8 +31,8 @@
         MAX_RESULTS: 100,
 
         // Request timeouts
-        TIMEOUT_MS: 5000,         // General timeout
-        MANDI_TIMEOUT_MS: 4000,   // Mandi API (data.gov.in is slow)
+        TIMEOUT_MS: 8000,         // General timeout
+        MANDI_TIMEOUT_MS: 15000,  // data.gov.in is regularly slow; give it real time
     };
 
     // ── Cache Layer (sessionStorage) ───────────────────────────
@@ -136,19 +136,23 @@
             if (cached) return cached;
         }
 
-        const params = new URLSearchParams({
-            'api-key': CONFIG.DATA_GOV_API_KEY,
-            format: 'json',
-            limit: String(CONFIG.MAX_RESULTS),
-            offset: '0',
-        });
-
-        if (state) params.append('filters[state.keyword]', state);
-        if (commodity) params.append('filters[commodity]', commodity);
-        if (district) params.append('filters[district]', district);
-        if (market) params.append('filters[market]', market);
-
-        const url = `${CONFIG.DATA_GOV_BASE}/${CONFIG.MANDI_PRICE_RESOURCE}?${params}`;
+        // Build the query string manually so the literal `[` and `]` in
+        // `filters[field]` are NOT percent-encoded — data.gov.in's parser
+        // rejects the percent-encoded form (%5B…%5D), which was the silent
+        // root cause of "no live data" until now. Spaces use %20.
+        const enc = encodeURIComponent;
+        const parts = [
+            `api-key=${enc(CONFIG.DATA_GOV_API_KEY)}`,
+            `format=json`,
+            `limit=${CONFIG.MAX_RESULTS}`,
+            `offset=0`,
+        ];
+        if (state)     parts.push(`filters[state]=${enc(state)}`);
+        if (commodity) parts.push(`filters[commodity]=${enc(commodity)}`);
+        if (district)  parts.push(`filters[district]=${enc(district)}`);
+        if (market)    parts.push(`filters[market]=${enc(market)}`);
+        const url = `${CONFIG.DATA_GOV_BASE}/${CONFIG.MANDI_PRICE_RESOURCE}?${parts.join('&')}`;
+        console.log('[KisanAPI] mandi GET', url);
 
         // Stale-while-revalidate: show old data instantly while refreshing.
         // Skipped on forceRefresh so an explicit search always fetches live.
@@ -185,11 +189,12 @@
             // Handle invalid API key or other server errors immediately
             if (!resp.ok) {
                 const text = await resp.text().catch(() => '');
-                console.warn(`API Error (${resp.status}): ${text}`);
-                throw new Error(`API Error ${resp.status}`);
+                console.warn(`[KisanAPI] mandi HTTP ${resp.status}:`, text.slice(0, 240));
+                throw new Error(`data.gov.in returned HTTP ${resp.status}`);
             }
 
             const json = await resp.json();
+            console.log('[KisanAPI] mandi OK — records:', (json.records || []).length, 'total:', json.total);
 
             // Process records if they exist
             const records = (json.records || []).map(r => ({
@@ -205,9 +210,48 @@
                 modalPrice: parseFloat(r.modal_price) || 0,
             }));
 
-            // API reachable but no records for this filter today — be honest and
-            // return an empty result (the UI shows a "no data" state) instead of
-            // fabricating prices. Mock data is only used when the network fails.
+            // If the specific filter combination yielded nothing, retry with
+            // just the commodity. Government data is published unevenly and a
+            // state+district+commodity query often returns 0 even when prices
+            // for that commodity exist across other mandis the same day.
+            if (records.length === 0 && (state || district || market) && commodity) {
+                console.log('[KisanAPI] mandi 0 records with filters — retrying with commodity only');
+                const looseUrl = `${CONFIG.DATA_GOV_BASE}/${CONFIG.MANDI_PRICE_RESOURCE}?api-key=${enc(CONFIG.DATA_GOV_API_KEY)}&format=json&limit=${CONFIG.MAX_RESULTS}&offset=0&filters[commodity]=${enc(commodity)}`;
+                const resp2 = await fetchWithTimeout(looseUrl, CONFIG.MANDI_TIMEOUT_MS);
+                if (resp2.ok) {
+                    const json2 = await resp2.json();
+                    let recs2 = (json2.records || []).map(r => ({
+                        state: r.state || '', district: r.district || '',
+                        market: r.market || '', commodity: r.commodity || '',
+                        variety: r.variety || '', grade: r.grade || '',
+                        arrivalDate: r.arrival_date || '',
+                        minPrice: parseFloat(r.min_price) || 0,
+                        maxPrice: parseFloat(r.max_price) || 0,
+                        modalPrice: parseFloat(r.modal_price) || 0,
+                    }));
+                    // If the user picked a state, prefer rows from that state on top,
+                    // but still include other states so the page isn't empty.
+                    if (state) {
+                        const inState = recs2.filter(r => r.state === state);
+                        if (inState.length) recs2 = [...inState, ...recs2.filter(r => r.state !== state)];
+                    }
+                    if (recs2.length) {
+                        const result = {
+                            total: json2.total || recs2.length,
+                            count: recs2.length,
+                            records: recs2,
+                            updated: json2.updated_date || new Date().toISOString(),
+                            isMock: false,
+                            relaxed: true
+                        };
+                        Cache.set(cacheKey, result);
+                        return result;
+                    }
+                }
+            }
+
+            // API reachable but no records — return an empty result so the UI
+            // shows a "no data" state. Mock data is only used when the network fails.
             if (records.length === 0) {
                 return { total: 0, count: 0, records: [], updated: json.updated_date || new Date().toISOString(), isMock: false };
             }

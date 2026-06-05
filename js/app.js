@@ -431,16 +431,27 @@ window.searchPrices = Utils.debounce(async function () {
         const freshLbl = document.getElementById('statFreshnessLabel');
         const nowStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
         if (freshEl) freshEl.textContent = result.isMock ? 'Simulated' : 'Live';
-        if (freshLbl) freshLbl.textContent = result.isMock ? 'API unavailable — showing sample' : `Updated ${nowStr}`;
-
-        UI.showToast(`✅ Loaded ${result.records.length} prices`, 'success');
+        if (freshLbl) {
+            if (result.isMock)       freshLbl.textContent = 'API unavailable — showing sample';
+            else if (result.relaxed) freshLbl.textContent = `Updated ${nowStr} · broadened to all states`;
+            else                     freshLbl.textContent = `Updated ${nowStr}`;
+        }
 
         if (result.isMock) {
-            UI.showToast('📡 Enabled Offline Mode (Simulated Data)', 'info');
-            const resultCount = document.getElementById('resultCount');
-            if (resultCount) {
-                resultCount.innerHTML += ' <span style="background:var(--warning-bg);color:var(--warning);padding:2px 6px;border-radius:4px;margin-left:8px;font-size:0.75rem;">Offline Mode</span>';
-            }
+            UI.showToast('📡 API unavailable — showing sample data', 'warning');
+        } else if (result.relaxed) {
+            UI.showToast(`Live data — no rows for ${state}; showing all states for ${commodityName}`, 'info');
+        } else {
+            UI.showToast(`✅ ${result.records.length} live prices loaded`, 'success');
+        }
+
+        // Show a small status pill next to the record count
+        const resultCount2 = document.getElementById('resultCount');
+        if (resultCount2 && (result.isMock || result.relaxed)) {
+            const pill = result.isMock
+                ? '<span style="background:var(--warning-bg);color:var(--warning);padding:2px 8px;border-radius:999px;margin-left:8px;font-size:0.7rem;font-weight:700;">Sample</span>'
+                : '<span style="background:var(--info-bg);color:var(--info);padding:2px 8px;border-radius:999px;margin-left:8px;font-size:0.7rem;font-weight:700;">All states</span>';
+            resultCount2.innerHTML += pill;
         }
 
     } catch (err) {
