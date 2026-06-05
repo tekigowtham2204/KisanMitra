@@ -55,11 +55,21 @@ function initNavToggle() {
     const links = document.getElementById('navLinks');
     if (!toggle || !links) return;
 
+    let savedScrollY = 0;
     const setOpen = (open) => {
         links.classList.toggle('active', open);
-        document.body.classList.toggle('nav-open', open);
         toggle.textContent = open ? '✕' : '☰';
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+            // Robust scroll-lock (works on iOS, where overflow:hidden does not)
+            savedScrollY = window.scrollY || window.pageYOffset || 0;
+            document.body.style.top = `-${savedScrollY}px`;
+            document.body.classList.add('nav-open');
+        } else {
+            document.body.classList.remove('nav-open');
+            document.body.style.top = '';
+            window.scrollTo(0, savedScrollY);
+        }
     };
 
     toggle.addEventListener('click', (e) => {
