@@ -26,9 +26,9 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.svg">
-    <link rel="stylesheet" href="css/style.css?v=13">
-    <link rel="stylesheet" href="css/redesign.css?v=13">
-    <link rel="stylesheet" href="css/mobile.css?v=13">
+    <link rel="stylesheet" href="css/style.css?v=14">
+    <link rel="stylesheet" href="css/redesign.css?v=14">
+    <link rel="stylesheet" href="css/mobile.css?v=14">
 </head>
 
 <body>
@@ -405,10 +405,10 @@
     <!-- Scroll to Top -->
     <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
 
-    <script src="js/api.js?v=13"></script>
-    <script src="js/data.js?v=13"></script>
-    <script src="js/i18n.js?v=13"></script>
-    <script type="module" src="js/app.js?v=13"></script>
+    <script src="js/api.js?v=14"></script>
+    <script src="js/data.js?v=14"></script>
+    <script src="js/i18n.js?v=14"></script>
+    <script type="module" src="js/app.js?v=14"></script>
 
     <!-- Service Worker & PWA Install -->
     <script>
@@ -429,25 +429,42 @@
                     .catch(err => console.warn('[SW] Registration failed:', err));
             });
         }
-        // PWA Install prompt
+        // PWA Install prompt — show once, with a dismiss memory (7 days)
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', e => {
             e.preventDefault();
             deferredPrompt = e;
+            const dismissedAt = parseInt(localStorage.getItem('km_install_dismissed_at') || '0', 10);
+            const WEEK = 7 * 24 * 60 * 60 * 1000;
+            if (dismissedAt && Date.now() - dismissedAt < WEEK) return;
+            // Don't show if already installed (standalone display)
+            if (window.matchMedia('(display-mode: standalone)').matches) return;
             const banner = document.createElement('div');
             banner.id = 'installBanner';
             banner.className = 'install-banner';
-            banner.innerHTML = '<div><strong>📱 Install KisanMitra</strong><br><small>Quick access from your home screen</small></div><div class="install-banner-actions"><button onclick="installPWA()" class="install-btn">Install</button><button onclick="this.parentElement.parentElement.remove()" class="later-btn">Later</button></div>';
+            banner.innerHTML = `
+                <div class="install-banner-info">
+                    <strong>Install KisanMitra</strong>
+                    <small>Quick access from your home screen</small>
+                </div>
+                <div class="install-banner-actions">
+                    <button onclick="installPWA()" class="install-btn">Install</button>
+                    <button onclick="dismissInstall()" class="later-btn" aria-label="Dismiss">Later</button>
+                </div>`;
             document.body.appendChild(banner);
         });
+        function dismissInstall() {
+            localStorage.setItem('km_install_dismissed_at', String(Date.now()));
+            const banner = document.getElementById('installBanner');
+            if (banner) banner.remove();
+        }
         function installPWA() {
             if (!deferredPrompt) return;
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then(result => {
                 console.log('[PWA] Install:', result.outcome);
                 deferredPrompt = null;
-                const banner = document.getElementById('installBanner');
-                if (banner) banner.remove();
+                dismissInstall();
             });
         }
     </script>

@@ -139,19 +139,25 @@
     .hero-stats::-webkit-scrollbar,
     .quick-stats::-webkit-scrollbar { display: none; }
 
-    .hero-stat {
-        flex: 0 0 46%;
-        scroll-snap-align: start;
-        padding: 16px 14px;
+    /* Cards are full-width on mobile so they look intentional, not cropped.
+       A small right padding leaves a hint that more is scrollable. */
+    .hero-stats, .quick-stats, .quick-stats.layout-4 {
+        padding-right: 28px;
+        scroll-padding-left: 16px;
     }
-    .hero-stat .stat-icon { font-size: 1.3rem; }
-    .hero-stat .stat-value { font-size: 1.3rem; }
+    .hero-stat {
+        flex: 0 0 86%;
+        scroll-snap-align: start;
+        padding: 18px 16px;
+    }
+    .hero-stat .stat-icon { font-size: 1.5rem; }
+    .hero-stat .stat-value { font-size: 1.45rem; }
 
     .quick-stats .stat-card,
     .quick-stats.layout-4 .stat-card {
-        flex: 0 0 74%;
+        flex: 0 0 86%;
         scroll-snap-align: start;
-        padding: 16px;
+        padding: 16px 18px;
     }
     .stat-card .stat-icon-box { width: 44px; height: 44px; font-size: 1.2rem; }
     .stat-info .value { font-size: 1.3rem; }
@@ -170,6 +176,36 @@
     .filter-bar { gap: 10px; }
     .filter-bar .form-control { flex: 1 1 100%; }
 
+    /* "Verified Only" was a 100%-wide green tile because flex children went
+       100%. Replace native control with a clean square so it stays compact. */
+    .filter-bar input[type="checkbox"],
+    .filter-bar .checkbox-sm {
+        flex: 0 0 auto;
+        appearance: none;
+        -webkit-appearance: none;
+        width: 22px; height: 22px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: 6px;
+        background: var(--card);
+        margin: 0;
+        position: relative;
+        cursor: pointer;
+        min-height: 0;
+    }
+    .filter-bar input[type="checkbox"]:checked,
+    .filter-bar .checkbox-sm:checked {
+        background: var(--green-600);
+        border-color: var(--green-600);
+    }
+    .filter-bar input[type="checkbox"]:checked::after,
+    .filter-bar .checkbox-sm:checked::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: #fff;
+        -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 6.5'/></svg>") no-repeat center / 70%;
+                mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12.5l4.5 4.5L19 6.5'/></svg>") no-repeat center / 70%;
+    }
+
     /* ── Market tabs: horizontal pill scroller ── */
     .tabs {
         display: flex;
@@ -180,15 +216,37 @@
     .tabs::-webkit-scrollbar { display: none; }
     .tab { flex: 0 0 auto; width: auto; white-space: nowrap; }
 
-    /* ── Collapsible dashboard cards ── */
+    /* ── Card header on mobile: stack title + meta into rows so badges/
+       buttons never wrap into the toggle caret. ── */
+    .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        position: relative;
+        padding-right: 40px; /* room for collapse caret */
+    }
+    .card-header h3 { font-size: 0.98rem; padding-right: 4px; }
+    .card-header .section-title-row,
+    .card-header .actions-row {
+        display: flex; align-items: center; gap: 8px;
+        flex-wrap: wrap;
+    }
+    .card-header .badge { font-size: 0.7rem; padding: 4px 9px; }
+    .card-header .btn { padding: 7px 12px; font-size: 0.78rem; }
+
+    /* Collapsible dashboard cards: caret is absolutely positioned at top-right
+       so badges/buttons inside the header don't fight with it. */
     .card.is-collapsible > .card-header { cursor: pointer; user-select: none; }
     .card.is-collapsible > .card-header::after {
-        content: '▾';
-        margin-left: 6px;
-        font-size: 0.95rem;
+        content: '';
+        position: absolute;
+        top: 18px; right: 16px;
+        width: 18px; height: 18px;
+        background: currentColor;
         color: var(--ink-3);
+        -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>") no-repeat center / contain;
+                mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>") no-repeat center / contain;
         transition: transform 0.2s var(--ease);
-        flex: 0 0 auto;
     }
     .card.collapsed > .card-header::after { transform: rotate(-90deg); }
     .card.collapsed > .card-body { display: none; }
@@ -287,14 +345,59 @@
     .install-banner { padding-bottom: max(14px, env(safe-area-inset-bottom)); }
 
     /* ── Charts fit the card width (no overflow, clean alignment) ── */
-    .chart-wrap, .chart-container { width: 100%; overflow-x: hidden; }
+    .chart-wrap, .chart-container {
+        width: 100%; overflow-x: hidden;
+        padding-top: 18px; /* room for the chart title that sits inside the canvas */
+    }
     .trend-canvas, .chart-canvas { width: 100% !important; height: auto !important; max-width: 100%; display: block; }
-    .bar-chart, .bar-chart-shell { overflow-x: auto; padding-left: 4px; padding-right: 4px; }
+    .bar-chart, .bar-chart-shell {
+        overflow-x: auto;
+        padding: 28px 6px 28px;
+        height: 220px;
+        gap: 10px;
+    }
+    .bar-chart .bar { min-width: 38px; border-radius: 8px 8px 0 0; }
+    .bar-chart .bar .bar-value { font-size: 0.66rem; }
+    .bar-chart .bar .bar-label { font-size: 0.62rem; }
     .price-trend-chart { margin: 16px 8px 32px 36px; }
     .msp-comparison { gap: 12px; flex-wrap: wrap; }
 
-    /* Toast spans nicely on small screens */
-    .toast-notification { left: 16px; right: 16px; max-width: none; top: 76px; }
+    /* Advisory items: keep the leading icon at text size so it doesn't tower
+       over the line. */
+    .advisory-item { padding: 12px 14px; font-size: 0.88rem; line-height: 1.55; }
+    .advisory-item .km-icon { width: 1em; height: 1em; vertical-align: -0.15em; }
+    .advisory-item .km-icon-inline { margin-right: 0.4em; }
+
+    /* Install banner: rounded floating pill, dismissable, narrower */
+    .install-banner {
+        left: 12px; right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        border-radius: 16px;
+        padding: 14px 16px;
+        box-shadow: 0 14px 32px rgba(10, 24, 16, 0.28);
+    }
+    .install-banner-info strong { display: block; font-size: 0.95rem; }
+    .install-banner-info small { opacity: 0.85; font-size: 0.78rem; }
+    .install-banner-actions { gap: 8px; }
+    .install-banner .install-btn, .install-banner .later-btn {
+        padding: 9px 14px; font-size: 0.85rem; border-radius: 10px;
+    }
+
+    /* Footer: tighter, brand block can span full row */
+    .footer { padding: 36px 0 26px; }
+    .footer h4 { font-size: 0.88rem; margin-bottom: 10px; }
+    .footer ul li { margin-bottom: 7px; }
+    .footer ul a, .footer p, .footer li, .footer span { font-size: 0.82rem; }
+
+    /* Toast: smaller, bottom-anchored, doesn't cover content */
+    .toast-notification {
+        left: 16px; right: 16px; top: auto; max-width: none;
+        bottom: calc(20px + env(safe-area-inset-bottom));
+        padding: 11px 14px; font-size: 0.85rem; border-radius: 12px;
+        animation: toastUp 0.28s var(--ease);
+    }
+    @keyframes toastUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .toast-notification.is-leaving { transform: translateY(20px); opacity: 0; }
 
     /* Helpline blocks a touch tighter */
     .helpline-banner { padding: 20px; }

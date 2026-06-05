@@ -87,31 +87,26 @@ export const UI = {
         const c = colors[type] || colors.info;
 
         const toast = document.createElement('div');
-        toast.className = 'toast-notification';
-        toast.style.cssText = `
-            position: fixed; top: 90px; right: 20px; z-index: 10000;
-            background: ${c.bg}; border: 1px solid ${c.border}; color: ${c.text};
-            padding: 14px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15); max-width: 420px;
-            animation: slideInRight 0.3s ease; cursor: pointer; display: flex; align-items: center; gap: 10px;
-        `;
+        toast.className = `toast-notification toast-${type}`;
+        // Set only color tokens via inline vars — positioning lives in CSS so
+        // mobile.css can place the toast safely above the bottom of the screen.
+        toast.style.setProperty('--toast-bg', c.bg);
+        toast.style.setProperty('--toast-border', c.border);
+        toast.style.setProperty('--toast-text', c.text);
 
-        const icon = type === 'success' ? '✅' : type === 'danger' ? '❌' : 'ℹ️';
-        toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+        const icon = type === 'success' ? '✅' : type === 'danger' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+        toast.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-msg">${message}</span>`;
 
-        toast.addEventListener('click', () => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        });
+        const dismiss = () => {
+            toast.classList.add('is-leaving');
+            setTimeout(() => toast.remove(), 280);
+        };
+        toast.addEventListener('click', dismiss);
 
         document.body.appendChild(toast);
-
-        setTimeout(() => {
-            toast.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateY(-20px)';
-            setTimeout(() => toast.remove(), 500);
-        }, 5000);
+        // Shorter on mobile: brief and non-blocking
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        setTimeout(dismiss, isMobile ? 2800 : 4000);
     },
 
     /**

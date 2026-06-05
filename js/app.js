@@ -535,10 +535,11 @@ function updateBarChart(records) {
 
     const maxPrice = Math.max(...topRecords.map(r => r.modalPrice));
 
-    container.innerHTML = topRecords.map((r, i) => {
+    container.innerHTML = topRecords.map((r) => {
         const height = (r.modalPrice / maxPrice) * 100;
-        const hue = 25 + (i * 15) % 140;
-        const color = `hsl(${hue}, 70%, 55%)`;
+        // Single brand-green palette: tallest bar darkest, descending lighter.
+        const t = height / 100; // 0..1
+        const color = `linear-gradient(180deg, hsl(148 ${40 + t * 18}% ${52 - t * 12}%), hsl(148 ${44 + t * 20}% ${44 - t * 10}%))`;
 
         return `<div class="bar" style="height:${height}%;background:${color};"
             title="${r.market}: ${Utils.formatCurrency(r.modalPrice)}">

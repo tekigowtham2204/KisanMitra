@@ -79,7 +79,11 @@ export const Utils = {
      * @returns {string} HTML string
      */
     getStarRatingHtml(rating) {
-        return '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : '');
+        const r = Math.max(0, Math.min(5, Number(rating) || 0));
+        const full = Math.floor(r);
+        const hasHalf = r - full >= 0.5;
+        const empty = 5 - full - (hasHalf ? 1 : 0);
+        return '★'.repeat(full) + (hasHalf ? '⯨' : '') + '☆'.repeat(empty);
     },
 
     /**
